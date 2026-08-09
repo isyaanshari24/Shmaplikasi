@@ -127,7 +127,7 @@ function rmBlok(btn,p,a){
    5. Signature gasGet/gasPost identik → pemanggil tidak berubah
 ═══════════════════════════════════════════════════════ */
 
-var GAS='https://script.google.com/macros/s/AKfycbyxCw9WY7Euwr__z5Lws7hhi9TaaDCHVj6CcnjzjY_jtOgDbhIUWtilfNsvxQHBYYnzNA/exec';
+var GAS='https://script.google.com/macros/s/AKfycbxTOmlJT0ZarZZKL2UqX4s_RAvnp1utfsxGCb976JS5PKRTiSKCE9cbFDNNoTwMa11Gow/exec';
 
 var DB_NAME='PTSHM_DB';
 var DB_VER=2; /* versi 2: tambah store sync_queue */

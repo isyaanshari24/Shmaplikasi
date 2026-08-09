@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Rekap Absensi - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="index.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#128203; Rekap Absensi</h1>
+</div>
+<div class="pg-body">
+  <div class="sw-wrap"><span class="sw-ico">&#128269;</span><input type="text" id="ab_search" placeholder="Cari nama anggota..." oninput="renderAbsensi()"/></div>
+  <div class="res-ct" id="ab_ct"></div>
+  <div id="ab_list"><div class="loading"><div class="spinner"></div>Memuat rekap absensi...</div></div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  try{ loadAbsensi(); }catch(e){ console.error('Gagal load absensi:', e); }
+});
+</script>
+</body>
+</html>

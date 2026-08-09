@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Request Heavy Equipment - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="input.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#127959;&#65039; Request Heavy Equipment</h1>
+</div>
+<div class="pg-body">
+        <div class="back-row"><a class="back-lnk" href="input.html">&#8249; Kembali</a></div>
+        <div class="card">
+          <div class="card-hdr"><div class="cico cb">&#127959;&#65039;</div><div><div class="card-ttl">Request Heavy Equipment</div></div></div>
+          <div class="card-body">
+            <div class="fs">
+              <div class="fr">
+                <div class="field"><label class="flbl">Tanggal</label><input type="date" id="a_tgl"/></div>
+                <div class="field"><label class="flbl">Subkontraktor</label><input type="text" id="a_subkon" placeholder="Nama perusahaan"/></div>
+              </div>
+              <div class="field"><label class="flbl">Project (Enter untuk tambah)</label>
+                <div class="tags" id="a_proj_wrap" onclick="this.querySelector('.tinput').focus()">
+                  <input class="tinput" placeholder="Ketik lalu Enter..." onkeydown="addTag(event,'a_proj_wrap','a_projs')"/>
+                </div>
+                <input type="hidden" id="a_projs" value="[]"/>
+              </div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Sesi</label>
+                  <select id="a_waktu"><option value="">—</option><option>Pagi</option><option>Siang</option><option>Malam</option></select>
+                </div>
+                <div class="field"><label class="flbl">Jam <span class="opt">(opsional)</span></label><input type="time" id="a_jam"/></div>
+              </div>
+              <div class="field"><label class="flbl">Alat Berat (Enter untuk tambah)</label>
+                <div class="tags" id="a_alat_wrap" onclick="this.querySelector('.tinput').focus()">
+                  <input class="tinput" placeholder="Ketik lalu Enter..." onkeydown="addTag(event,'a_alat_wrap','a_alats')"/>
+                </div>
+                <input type="hidden" id="a_alats" value="[]"/>
+              </div>
+              <div class="field"><label class="flbl">Rekomendasi Unit <span class="opt">(opsional)</span></label><input type="text" id="a_rekom" placeholder="Unit 3"/></div>
+              <div class="dlbl">Blok Pekerjaan</div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Project</label><input type="text" id="bp_proj" placeholder="Nama project"/></div>
+                <div class="field"><label class="flbl">Alat</label><input type="text" id="bp_alat" placeholder="Nama alat"/></div>
+              </div>
+              <button class="btn btn-g btn-sm" style="width:fit-content" onclick="addBlok()">+ Tambah Blok</button>
+              <div id="blok_list"></div>
+              <input type="hidden" id="a_blok" value="[]"/>
+            </div>
+            <div class="brow">
+              <button class="btn btn-o" onclick="prevAlat()">Preview WA</button>
+              <button class="btn btn-p" onclick="saveAlat()">Simpan</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="a_prev_card" style="display:none">
+          <div class="card-hdr"><div class="cico ct">&#128172;</div><div><div class="card-ttl">Preview WhatsApp</div></div></div>
+          <div class="card-body"><div class="pre-box" id="a_prev"></div>
+            <div class="brow"><button class="btn btn-g btn-sm" onclick="copyEl('a_prev')">Salin Teks</button></div>
+          </div>
+        </div>
+      </div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

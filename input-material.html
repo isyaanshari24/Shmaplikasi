@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Request Material - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="input.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#128230; Request Material</h1>
+</div>
+<div class="pg-body">
+        <div class="back-row"><a class="back-lnk" href="input.html">&#8249; Kembali</a></div>
+        <div class="card">
+          <div class="card-hdr"><div class="cico cg">&#128230;</div><div><div class="card-ttl">Request Material</div><div class="card-sub">Isi form lalu preview atau simpan</div></div></div>
+          <div class="card-body">
+            <div class="fs">
+              <div class="fr">
+                <div class="field"><label class="flbl">Tanggal</label><input type="date" id="m_tgl"/></div>
+                <div class="field"><label class="flbl">Kategori</label>
+                  <select id="m_kat"><option value="">— Pilih —</option><option>Consumable</option><option>Raw Material</option></select>
+                </div>
+              </div>
+              <div class="field"><label class="flbl">Project / Kapal</label><input type="text" id="m_proj" placeholder="cth. Kapal Nusantara"/></div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Kode Material</label><input type="text" id="m_kode" placeholder="MAT-001"/></div>
+                <div class="field"><label class="flbl">Nama Material</label><input type="text" id="m_nama" placeholder="Besi Plat 6mm"/></div>
+              </div>
+              <div class="fr3">
+                <div class="field"><label class="flbl">Jumlah</label><input type="number" id="m_qty" placeholder="0" min="0"/></div>
+                <div class="field"><label class="flbl">Satuan</label>
+                  <select id="m_sat"><option value="">—</option><option>pcs</option><option>lembar</option><option>kg</option><option>meter</option><option>roll</option><option>set</option><option>unit</option></select>
+                </div>
+                <div class="field"><label class="flbl">Valuation</label>
+                  <select id="m_val"><option value="">—</option><option>Unrestricted</option><option>Restricted</option></select>
+                </div>
+              </div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Ukuran <span class="opt">(opsional)</span></label><input type="text" id="m_ukur" placeholder="1200x2400"/></div>
+                <div class="field"><label class="flbl">Mark <span class="opt">(opsional)</span></label><input type="text" id="m_mark" placeholder="Catatan..."/></div>
+              </div>
+            </div>
+            <div class="brow">
+              <button class="btn btn-o" onclick="prevMaterial()">Preview WA</button>
+              <button class="btn btn-p" onclick="saveMaterial()">Simpan</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="m_prev_card" style="display:none">
+          <div class="card-hdr"><div class="cico ct">&#128172;</div><div><div class="card-ttl">Preview WhatsApp</div></div></div>
+          <div class="card-body"><div class="pre-box" id="m_prev"></div>
+            <div class="brow"><button class="btn btn-g btn-sm" onclick="copyEl('m_prev')">Salin Teks</button></div>
+          </div>
+        </div>
+      </div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

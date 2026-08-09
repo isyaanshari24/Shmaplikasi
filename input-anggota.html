@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Daftarkan Anggota Baru - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="input.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#128100; Daftarkan Anggota Baru</h1>
+</div>
+<div class="pg-body">
+        <div class="back-row"><a class="back-lnk" href="input.html">&#8249; Kembali</a></div>
+        <div class="card">
+          <div class="card-hdr"><div class="cico cg">&#10133;</div><div><div class="card-ttl">Daftarkan Anggota Baru</div><div class="card-sub">Data muncul di halaman Data Anggota</div></div></div>
+          <div class="card-body">
+            <div class="fs">
+              <div class="fr">
+                <div class="field"><label class="flbl">Nama Lengkap</label><input type="text" id="an_nama" placeholder="Nama sesuai KTP"/></div>
+                <div class="field"><label class="flbl">Posisi</label>
+                  <select id="an_pos"><option value="">— Pilih —</option><option>Fitter</option><option>Welder</option><option>Helper</option><option>Piping</option></select>
+                </div>
+              </div>
+              <div class="fr">
+                <div class="field"><label class="flbl">No. HP</label><input type="tel" id="an_hp" placeholder="08xxxxxxxxxx"/></div>
+                <div class="field"><label class="flbl">NIK / KTP</label><input type="text" id="an_nik" placeholder="16 digit NIK" maxlength="16"/></div>
+              </div>
+              <div class="field"><label class="flbl">Status</label>
+                <select id="an_stat"><option value="Aktif">Aktif</option><option value="Tidak Aktif">Tidak Aktif</option></select>
+              </div>
+              <div class="dlbl">Link Dokumen Google Drive</div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Link KTP</label><input type="url" id="an_lktp" placeholder="https://drive.google.com/..."/></div>
+                <div class="field"><label class="flbl">Link ID Card</label><input type="url" id="an_lid" placeholder="https://drive.google.com/..."/></div>
+              </div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Link QR Code</label><input type="url" id="an_lqr" placeholder="https://drive.google.com/..."/></div>
+                <div class="field"><label class="flbl">Link BPJS</label><input type="url" id="an_lbpjs" placeholder="https://drive.google.com/..."/></div>
+              </div>
+            </div>
+            <div class="brow"><button class="btn btn-p" onclick="saveAnggota()">Simpan Anggota</button></div>
+          </div>
+        </div>
+      </div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Seri Tabung - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="input.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#128309; Seri Tabung</h1>
+</div>
+<div class="pg-body">
+        <div class="back-row"><a class="back-lnk" href="input.html">&#8249; Kembali</a></div>
+        <div class="card">
+          <div class="card-hdr"><div class="cico ct">&#128309;</div><div><div class="card-ttl">Input Seri Tabung</div></div></div>
+          <div class="card-body">
+            <div class="fs">
+              <div class="fr">
+                <div class="field"><label class="flbl">Tanggal</label><input type="date" id="t_tgl"/></div>
+                <div class="field"><label class="flbl">No. Seri</label><input type="text" id="t_seri" placeholder="TBG-2024-001"/></div>
+              </div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Jenis</label>
+                  <select id="t_jenis"><option value="">— Pilih —</option><option>Oksigen</option><option>Asetilen</option><option>Argon</option><option>CO2</option></select>
+                </div>
+                <div class="field"><label class="flbl">Status</label>
+                  <select id="t_status"><option value="">— Pilih —</option><option>Normal</option><option>No Seri Hilang</option><option>Tidak Terbaca</option></select>
+                </div>
+              </div>
+              <div class="field"><label class="flbl">Project / Kapal</label><input type="text" id="t_proj" placeholder="Kapal Nusantara"/></div>
+              <div class="field"><label class="flbl">Catatan <span class="opt">(opsional)</span></label><textarea id="t_cat" placeholder="Kondisi tabung..."></textarea></div>
+            </div>
+            <div class="brow">
+              <button class="btn btn-o" onclick="prevTabung()">Preview WA</button>
+              <button class="btn btn-p" onclick="saveTabung()">Simpan</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="t_prev_card" style="display:none">
+          <div class="card-hdr"><div class="cico ct">&#128172;</div><div><div class="card-ttl">Preview WhatsApp</div></div></div>
+          <div class="card-body"><div class="pre-box" id="t_prev"></div>
+            <div class="brow"><button class="btn btn-g btn-sm" onclick="copyEl('t_prev')">Salin Teks</button></div>
+          </div>
+        </div>
+      </div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

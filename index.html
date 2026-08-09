@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>PT. Sumber Hayati Mandiri</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>#home{display:block !important}</style>
+</head>
+<body>
+
+<div id="home">
+  <div class="h-hdr">
+    <div class="h-logo">
+      <svg class="lsvg" viewBox="0 0 48 48" fill="none" style="width:40px;height:40px">
+        <rect x="4" y="4" width="40" height="40" rx="11"/>
+        <path d="M15 33V15M15 33H33M24 33V22M33 33V20"
+          stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="h-info">
+      <h1>PT. Sumber Hayati Mandiri</h1>
+      <p>General Contractor &amp; Marine Service</p>
+    </div>
+    <div class="h-right">
+      <div class="s-pill">Aktif</div>
+      <button class="tbtn" onclick="toggleTheme()">&#9728;&#65039;</button>
+    </div>
+  </div>
+  <div class="h-body">
+    <div class="sec-lbl">Menu Utama</div>
+    <div class="h-grid">
+      <a class="hc" href="input.html">
+        <div class="hc-ico ig">&#9999;&#65039;</div>
+        <div class="hc-body">
+          <div class="hc-row"><span class="hc-title">Input Data</span><span class="hc-arr">&#8250;</span></div>
+          <div class="hc-desc">Material, Tabung, Alat Berat, Kendala &amp; Anggota</div>
+        </div>
+      </a>
+      <a class="hc" href="absensi.html">
+        <div class="hc-ico iv">&#128203;</div>
+        <div class="hc-body">
+          <div class="hc-row"><span class="hc-title">Absensi</span><span class="hc-arr">&#8250;</span></div>
+          <div class="hc-desc">Rekap kehadiran &amp; perhitungan gaji</div>
+        </div>
+      </a>
+      <a class="hc" href="data-anggota.html">
+        <div class="hc-ico ib">&#128101;</div>
+        <div class="hc-body">
+          <div class="hc-row"><span class="hc-title">Data Anggota</span><span class="hc-arr">&#8250;</span></div>
+          <div class="hc-desc">Profil &amp; dokumen Google Drive</div>
+        </div>
+      </a>
+      <a class="hc" href="export.html">
+        <div class="hc-ico ia">&#128228;</div>
+        <div class="hc-body">
+          <div class="hc-row"><span class="hc-title">Export Data</span><span class="hc-arr">&#8250;</span></div>
+          <div class="hc-desc">Export PDF / Excel &amp; Activity Log</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="offline-bar" class="sync-offline-bar">&#128245; Offline &mdash; data disimpan lokal, akan sync otomatis jam 21:00</div>
+<script src="common.js"></script>
+</body>
+</html>

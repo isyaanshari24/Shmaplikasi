@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Laporan Keterlambatan - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="input.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#9888;&#65039; Laporan Keterlambatan</h1>
+</div>
+<div class="pg-body">
+        <div class="back-row"><a class="back-lnk" href="input.html">&#8249; Kembali</a></div>
+        <div class="card">
+          <div class="card-hdr"><div class="cico ca">&#9888;&#65039;</div><div><div class="card-ttl">Laporan Keterlambatan</div></div></div>
+          <div class="card-body">
+            <div class="fs">
+              <div class="fr">
+                <div class="field"><label class="flbl">Tanggal</label><input type="date" id="k_tgl"/></div>
+                <div class="field"><label class="flbl">Project / Kapal</label><input type="text" id="k_proj" placeholder="Nama kapal"/></div>
+              </div>
+              <div class="field"><label class="flbl">Jenis Kendala</label>
+                <select id="k_jenis"><option value="">— Pilih —</option><option>Keterlambatan Material</option><option>Kerusakan Alat</option><option>Cuaca</option><option>SDM</option><option>Lainnya</option></select>
+              </div>
+              <div class="field"><label class="flbl">Deskripsi</label><textarea id="k_desk" placeholder="Jelaskan kendala secara detail..."></textarea></div>
+              <div class="fr">
+                <div class="field"><label class="flbl">Durasi</label><input type="text" id="k_dur" placeholder="cth. 2 jam"/></div>
+                <div class="field"><label class="flbl">Solusi</label><input type="text" id="k_sol" placeholder="Tindakan diambil"/></div>
+              </div>
+            </div>
+            <div class="brow"><button class="btn btn-p" onclick="saveKendala()">Simpan Laporan</button></div>
+          </div>
+        </div>
+      </div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Absensi Harian - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="input.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#128203; Absensi Harian</h1>
+</div>
+<div class="pg-body">
+        <div class="back-row"><a class="back-lnk" href="input.html">&#8249; Kembali</a></div>
+
+        <!-- STEP INDICATOR -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 14px 12px;margin-bottom:14px">
+          <div class="step-ind" id="abh-step-ind">
+            <div class="step-wrap"><div class="step-dot active" id="sdot-0">1</div><div class="step-lbl active" id="slbl-0">Tanggal</div></div>
+            <div class="step-line" id="sline-0"></div>
+            <div class="step-wrap"><div class="step-dot" id="sdot-1">2</div><div class="step-lbl" id="slbl-1">Kehadiran</div></div>
+            <div class="step-line" id="sline-1"></div>
+            <div class="step-wrap"><div class="step-dot" id="sdot-2">3</div><div class="step-lbl" id="slbl-2">Assign Project</div></div>
+            <div class="step-line" id="sline-2"></div>
+            <div class="step-wrap"><div class="step-dot" id="sdot-3">4</div><div class="step-lbl" id="slbl-3">Output WA</div></div>
+          </div>
+        </div>
+
+        <!-- STEP 1: PILIH TANGGAL -->
+        <div class="ab-step on" id="abh-step-1">
+          <div class="card">
+            <div class="card-hdr"><div class="cico cv">&#128197;</div><div><div class="card-ttl">Pilih Tanggal</div><div class="card-sub">Tanggal absensi harian</div></div></div>
+            <div class="card-body">
+              <div class="field"><label class="flbl">Tanggal</label><input type="date" id="abh_tgl"/></div>
+              <div class="brow" style="margin-top:18px">
+                <button class="btn btn-p btn-fw" onclick="abh_toStep2()">Lanjut &rarr; Input Kehadiran</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: LIST ANGGOTA + STATUS -->
+        <div class="ab-step" id="abh-step-2">
+          <div class="card">
+            <div class="card-hdr">
+              <div class="cico cv">&#128101;</div>
+              <div style="flex:1">
+                <div class="card-ttl">Kehadiran Anggota</div>
+                <div class="card-sub" id="abh_tgl_lbl">—</div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 0;border-bottom:1px solid var(--border2)">
+              <div style="display:flex;gap:6px;align-items:center;padding-bottom:10px">
+                <span style="font-size:11px;font-weight:700;color:var(--muted-fg)">Tandai semua:</span>
+                <button class="btn btn-sm btn-o" onclick="abh_markAll('Masuk')">Masuk</button>
+                <button class="btn btn-sm btn-o" onclick="abh_markAll('Libur')">Libur</button>
+              </div>
+            </div>
+            <div id="abh_anggota_list">
+              <div class="loading"><div class="spinner"></div>Memuat anggota...</div>
+            </div>
+            <div style="padding:14px">
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-o" onclick="abh_toStep1()">&larr; Kembali</button>
+                <button class="btn btn-p" style="flex:1" onclick="abh_toStep3()">Lanjut &rarr; Assign Project</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: ASSIGN KE PROJECT -->
+        <div class="ab-step" id="abh-step-3">
+          <div class="card" style="margin-bottom:10px">
+            <div class="card-hdr"><div class="cico cg">&#127959;&#65039;</div><div><div class="card-ttl">Assign ke Project</div><div class="card-sub">Centang anggota yang masuk tiap project</div></div></div>
+            <div class="card-body" style="padding-bottom:8px">
+              <div class="proj-chip-add">
+                <input type="text" id="abh_new_proj" placeholder="Nama project baru..." style="height:34px"/>
+                <button class="btn btn-o" onclick="abh_addProject()">+ Tambah</button>
+              </div>
+            </div>
+          </div>
+          <div id="abh_proj_list"></div>
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <button class="btn btn-o" onclick="abh_toStep2()">&larr; Kembali</button>
+            <button class="btn btn-p" style="flex:1" onclick="abh_toStep4()">Lanjut &rarr; Output WA</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: OUTPUT WA -->
+        <div class="ab-step" id="abh-step-4">
+          <!-- Output 1: List Manpower per Project -->
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-hdr"><div class="cico ct">&#128172;</div><div><div class="card-ttl">List Manpower per Project</div><div class="card-sub">Format WhatsApp siap kirim</div></div></div>
+            <div class="card-body">
+              <div class="wa-out-box" id="abh_out_list"></div>
+              <div class="brow">
+                <button class="btn btn-p" onclick="abh_copyList()">&#128203; Salin List Manpower</button>
+              </div>
+            </div>
+          </div>
+          <!-- Output 2: Rekap Jumlah -->
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-hdr"><div class="cico ca">&#128202;</div><div><div class="card-ttl">Rekap Jumlah Manpower</div><div class="card-sub">Total manpower per project</div></div></div>
+            <div class="card-body">
+              <div class="wa-out-box" id="abh_out_rekap"></div>
+              <div class="brow">
+                <button class="btn btn-p" onclick="abh_copyRekap()">&#128203; Salin Rekap Jumlah</button>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <button class="btn btn-o" onclick="abh_toStep3()">&larr; Ubah Project</button>
+            <button class="btn btn-g" style="flex:1" onclick="abh_saveAll()">&#128190; Simpan ke Spreadsheet</button>
+          </div>
+        </div>
+
+      </div><!-- /sub-absensi-harian -->
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Input Data - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+.input-sub-btn{text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="index.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>Input Data</h1>
+</div>
+<div class="pg-body">
+  <div class="sec-lbl" style="margin-top:0">Pilih Modul Input</div>
+
+  <a class="input-sub-btn" href="input-material.html">
+    <div class="isb-ico ig">&#128230;</div>
+    <div class="isb-body"><div class="isb-title">Request Material</div><div class="isb-desc">Buat permintaan material &amp; preview WA</div></div>
+    <span class="isb-arr">&#8250;</span>
+  </a>
+
+  <a class="input-sub-btn" href="input-tabung.html">
+    <div class="isb-ico ct">&#128309;</div>
+    <div class="isb-body"><div class="isb-title">Seri Tabung</div><div class="isb-desc">Input &amp; pantau seri Oxygen / LPG</div></div>
+    <span class="isb-arr">&#8250;</span>
+  </a>
+
+  <a class="input-sub-btn" href="input-he.html">
+    <div class="isb-ico cb">&#127959;&#65039;</div>
+    <div class="isb-body"><div class="isb-title">Request Heavy Equipment</div><div class="isb-desc">Multi-project, multi-alat, kirim ke WA</div></div>
+    <span class="isb-arr">&#8250;</span>
+  </a>
+
+  <a class="input-sub-btn" href="input-kendala.html">
+    <div class="isb-ico ca">&#9888;&#65039;</div>
+    <div class="isb-body"><div class="isb-title">Laporan Keterlambatan</div><div class="isb-desc">Catat kendala lapangan &amp; solusi</div></div>
+    <span class="isb-arr">&#8250;</span>
+  </a>
+
+  <a class="input-sub-btn" href="input-absensi-harian.html">
+    <div class="isb-ico cv">&#128203;</div>
+    <div class="isb-body"><div class="isb-title">Absensi Harian</div><div class="isb-desc">Input kehadiran &amp; assign ke project, copy WA</div></div>
+    <span class="isb-arr">&#8250;</span>
+  </a>
+
+  <a class="input-sub-btn" href="input-anggota.html">
+    <div class="isb-ico cv">&#128100;</div>
+    <div class="isb-body"><div class="isb-title">Daftarkan Anggota Baru</div><div class="isb-desc">Tambah data anggota baru ke sistem</div></div>
+    <span class="isb-arr">&#8250;</span>
+  </a>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="theme-color" id="tc" content="#171b21"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Export - PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="common.css"/>
+<style>
+.pg-hdr{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.pg-hdr h1{font-size:16px;font-weight:700;margin:0}
+.pg-body{padding:16px;max-width:640px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="pg-hdr">
+  <a href="index.html" style="font-size:22px;text-decoration:none;color:var(--fg)">&#8249;</a>
+  <h1>&#128202; Export</h1>
+</div>
+<div class="pg-body">
+  <div style="padding-bottom:14px">
+    <div class="sec-lbl" style="margin-top:0">Format Export</div>
+    <div class="fmt-grid">
+      <button class="fmt-card sel" id="fmt-pdf" onclick="selFmt('pdf')">
+        <div class="fmt-ico">&#128196;</div>
+        <div><div class="fmt-ttl">PDF Document</div><div class="fmt-ext">.pdf</div></div>
+      </button>
+      <button class="fmt-card" id="fmt-xl" onclick="selFmt('excel')">
+        <div class="fmt-ico">&#128202;</div>
+        <div><div class="fmt-ttl">Excel Sheet</div><div class="fmt-ext">.xlsx</div></div>
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><div class="cico cg">&#9881;&#65039;</div><div><div class="card-ttl">Pengaturan Export</div></div></div>
+    <div class="card-body">
+      <div class="fs">
+        <div class="field"><label class="flbl">Modul Data</label>
+          <select id="exp_scope">
+            <option value="request_material">Request Material</option>
+            <option value="request_alat_berat">Request Alat Berat</option>
+            <option value="seri_tabung">Seri Tabung</option>
+            <option value="absensi">Absensi</option>
+            <option value="laporan_keterlambatan">Laporan Keterlambatan</option>
+            <option value="data_anggota">Data Anggota</option>
+          </select>
+        </div>
+        <div class="fr">
+          <div class="field"><label class="flbl">Dari Tanggal</label><input type="date" id="exp_dari"/></div>
+          <div class="field"><label class="flbl">Sampai</label><input type="date" id="exp_sampai"/></div>
+        </div>
+        <div class="sw-row">
+          <div class="sw-info"><span>Sertakan semua status</span><small>Termasuk data lama &amp; non-aktif</small></div>
+          <label class="sw"><input type="checkbox" id="exp_all" checked/><div class="sw-trk"></div><div class="sw-th"></div></label>
+        </div>
+      </div>
+      <div class="brow"><button class="btn btn-p btn-fw" id="exp_btn" onclick="doExport()">Export PDF</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><div class="cico cv">&#128202;</div><div><div class="card-ttl">Activity Log</div><div class="card-sub">Riwayat semua aktivitas sistem</div></div></div>
+    <div class="card-body" style="padding-bottom:4px">
+      <div id="act_log"><div class="loading"><div class="spinner"></div>Memuat log...</div></div>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+<script src="common.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  try{ initDates(); }catch(e){}
+  try{ loadActLog(); }catch(e){ console.error('Gagal load activity log:', e); }
+});
+</script>
+</body>
+</html>

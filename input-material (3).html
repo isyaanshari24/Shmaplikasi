@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" id="tc" content="#0f1117"/>
+<title>Input Material — PT. SHM</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f8fafb;--fg:#111318;--card:#fff;
+  --muted:#f1f3f4;--muted-fg:#6b7280;
+  --primary:#16a34a;--primary-fg:#f0fdf4;
+  --p8:rgba(22,163,74,.08);--p12:rgba(22,163,74,.12);
+  --p15:rgba(22,163,74,.15);--p30:rgba(22,163,74,.30);
+  --border:rgba(0,0,0,.09);--border2:rgba(0,0,0,.05);
+  --ib:rgba(0,0,0,.03);--ibr:rgba(0,0,0,.12);
+  --ring:#16a34a;
+  --red:#dc2626;--r10:rgba(220,38,38,.10);--r20:rgba(220,38,38,.18);
+  --amber:#f59e0b;--a10:rgba(245,158,11,.10);
+  --blue:#3b82f6;--b10:rgba(59,130,246,.10);
+  --r:0.875rem;
+}
+[data-theme=dark]{
+  --bg:#0f1117;--fg:#f1f5f9;--card:#161b24;
+  --muted:#1e2533;--muted-fg:#8b9ab1;
+  --primary:#22c55e;--primary-fg:#052e16;
+  --p8:rgba(34,197,94,.08);--p12:rgba(34,197,94,.12);
+  --p15:rgba(34,197,94,.15);--p30:rgba(34,197,94,.30);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.04);
+  --ib:rgba(255,255,255,.04);--ibr:rgba(255,255,255,.10);
+  --ring:#22c55e;
+  --red:#f87171;--r10:rgba(248,113,113,.12);--r20:rgba(248,113,113,.22);
+  --amber:#fbbf24;--a10:rgba(251,191,36,.10);
+  --blue:#60a5fa;--b10:rgba(96,165,250,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-tap-highlight-color:transparent}
+body{font-family:'Geist',-apple-system,sans-serif;font-size:14px;line-height:1.5;
+  color:var(--fg);background:var(--bg);min-height:100dvh;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  height:56px;padding:0 16px;
+  background:color-mix(in srgb,var(--bg) 85%,transparent);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border)}
+.hdr-logo{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.hdr-logo svg rect{fill:var(--p12)}
+.hdr-logo svg path{stroke:var(--primary)}
+.hdr-ttl{font-size:15px;font-weight:700;letter-spacing:-.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.icon-btn{width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--muted);border:1px solid var(--border);font-size:15px;transition:background .15s}
+.icon-btn:hover{background:var(--p12)}
+/* BODY */
+.body{padding:14px 16px;max-width:600px;margin:0 auto;padding-bottom:40px}
+/* SECTION LABEL */
+.slbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted-fg);margin-bottom:8px}
+/* DATE ROW */
+.date-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.date-row label{font-size:12px;font-weight:600;color:var(--muted-fg)}
+input[type=date]{font-family:'Geist Mono',monospace;font-size:13px;color:var(--fg);
+  background:var(--ib);border:1px solid var(--ibr);border-radius:9px;
+  padding:0 10px;height:34px;outline:none;transition:border-color .15s,box-shadow .15s}
+input[type=date]:focus{border-color:var(--ring);box-shadow:0 0 0 3px var(--p15)}
+/* KAPAL CARD */
+.kapal-card{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;margin-bottom:14px}
+.kapal-sel-row{display:flex;align-items:center;gap:10px;padding:12px 14px;
+  border-bottom:1px solid var(--border2);cursor:pointer}
+.kapal-ico{width:32px;height:32px;border-radius:8px;background:var(--p12);
+  color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kapal-name{font-size:14px;font-weight:700;flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kapal-hint{font-size:11px;color:var(--muted-fg)}
+.kapal-chg{font-size:12px;font-weight:600;color:var(--primary);
+  padding:5px 10px;border-radius:8px;background:var(--p8);flex-shrink:0}
+.kapal-chg:hover{background:var(--p15)}
+.kdd{display:none;border-top:1px solid var(--border2)}
+.kdd.open{display:block}
+.kdd-list{max-height:180px;overflow-y:auto}
+.kdd-item{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;font-size:13px;font-weight:500;
+  border-bottom:1px solid var(--border2);cursor:pointer;transition:background .1s}
+.kdd-item:last-child{border-bottom:none}
+.kdd-item:hover{background:var(--p8)}
+.kdd-item.on{color:var(--primary);font-weight:700;background:var(--p8)}
+.kdd-chk{color:var(--primary);font-size:14px}
+.kdd-empty{padding:14px;text-align:center;font-size:13px;color:var(--muted-fg)}
+.kdd-actions{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border2)}
+.kdd-act{display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px;font-size:12px;font-weight:600;color:var(--muted-fg);transition:background .15s,color .15s}
+.kdd-act:hover{background:var(--muted)}
+.kdd-act.add:hover{color:var(--primary)}
+.kdd-act.del:hover{color:var(--red)}
+.kdd-act:first-child{border-right:1px solid var(--border2)}
+.kdd-addform{display:none;padding:12px 14px;border-top:1px solid var(--border2);flex-direction:column;gap:8px}
+.kdd-addform.open{display:flex}
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;margin-bottom:12px}
+.card-hdr{padding:13px 16px;border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;gap:10px}
+.cico{width:30px;height:30px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.cg{background:var(--p12)} .ca{background:var(--a10)} .cb{background:var(--b10)}
+.card-ttl{font-size:13px;font-weight:700}
+.card-sub{font-size:11px;color:var(--muted-fg);margin-top:1px}
+.card-body{padding:16px}
+/* FORM */
+.fs{display:flex;flex-direction:column;gap:12px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:380px){.fr,.fr3{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px}
+.flbl{font-size:12px;font-weight:600;color:var(--fg)}
+.flbl .opt{font-weight:400;color:var(--muted-fg);font-size:11px}
+input[type=number],input[type=text]{
+  font-family:'Geist',sans-serif;font-size:14px;color:var(--fg);
+  background:var(--ib);border:1px solid var(--ibr);border-radius:10px;
+  padding:0 12px;width:100%;height:40px;outline:none;
+  transition:border-color .15s,box-shadow .15s}
+input[type=number]:focus,input[type=text]:focus{
+  border-color:var(--ring);box-shadow:0 0 0 3px var(--p15)}
+input::placeholder{color:var(--muted-fg)}
+input[readonly]{opacity:.55;cursor:default}
+select{font-family:'Geist',sans-serif;font-size:14px;color:var(--fg);
+  background:var(--ib);border:1px solid var(--ibr);border-radius:10px;
+  padding:0 12px;width:100%;height:40px;outline:none;-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b9ab1' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;
+  transition:border-color .15s,box-shadow .15s}
+select:focus{border-color:var(--ring);box-shadow:0 0 0 3px var(--p15)}
+/* TOGGLE BUTTONS */
+.toggle2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.toggle3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.tbtn{padding:9px 0;border-radius:10px;font-size:13px;font-weight:600;
+  border:1.5px solid var(--border);color:var(--muted-fg);background:var(--muted);transition:all .15s}
+.tbtn.on{background:var(--primary);color:var(--primary-fg);border-color:var(--primary)}
+/* KODE FIELD */
+.kode-inp{font-family:'Geist Mono',monospace!important;font-size:13px!important;
+  color:var(--primary)!important;font-weight:600!important;
+  background:var(--p8)!important;border-color:var(--p30)!important}
+/* MATERIAL SEARCH */
+.msw{position:relative}
+.msw-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  color:var(--muted-fg);pointer-events:none}
+.msw-ico svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.msw input{padding-left:34px}
+.mres{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:210px;overflow-y:auto}
+.mres.open{display:block}
+.mri{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border2);cursor:pointer;transition:background .1s}
+.mri:last-child{border-bottom:none}
+.mri:hover{background:var(--p8)}
+.mri-name{font-weight:600;color:var(--fg)}
+.mri-kode{font-size:10px;color:var(--muted-fg);font-family:'Geist Mono',monospace;margin-top:1px}
+.mri-kat{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;flex-shrink:0;margin-left:8px}
+.mk-c{background:var(--p12);color:var(--primary)}
+.mk-r{background:var(--a10);color:var(--amber)}
+.mres-empty{padding:14px;text-align:center;font-size:13px;color:var(--muted-fg)}
+/* SELECTED MATERIAL CHIP */
+.msel{display:none;align-items:center;gap:10px;
+  background:var(--p8);border:1px solid var(--p30);border-radius:10px;padding:9px 12px;margin-top:8px}
+.msel.show{display:flex}
+.msel-kode{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;
+  color:var(--primary);background:var(--p12);padding:3px 8px;border-radius:6px;flex-shrink:0}
+.msel-name{font-size:12px;font-weight:700;flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msel-clear{font-size:18px;color:var(--muted-fg);line-height:1;padding:2px;transition:color .15s}
+.msel-clear:hover{color:var(--red)}
+/* UKURAN (raw only) */
+.ukuran-wrap{display:none}
+.ukuran-wrap.show{display:flex;flex-direction:column;gap:5px}
+/* ITEM LIST */
+.il{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.icard{background:var(--muted);border:1px solid var(--border);border-radius:12px;
+  padding:11px 13px;display:flex;align-items:flex-start;gap:10px}
+.inum{width:22px;height:22px;border-radius:50%;background:var(--primary);color:var(--primary-fg);
+  font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.iinfo{flex:1;min-width:0}
+.iname{font-size:13px;font-weight:700;color:var(--fg);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.imeta{font-size:11px;color:var(--muted-fg);margin-top:3px;font-family:'Geist Mono',monospace}
+.idel{padding:4px;color:var(--muted-fg);border-radius:6px;font-size:16px;line-height:1;transition:color .15s,background .15s}
+.idel:hover{color:var(--red);background:var(--r10)}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;
+  padding:10px;border-radius:10px;border:1.5px dashed var(--border);
+  font-size:13px;font-weight:600;color:var(--muted-fg);transition:all .15s}
+.add-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--p8)}
+.empty-il{text-align:center;padding:20px;color:var(--muted-fg)}
+.empty-il svg{width:28px;height:28px;stroke:var(--muted-fg);fill:none;margin:0 auto 6px;display:block;
+  opacity:.35;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.empty-il p{font-size:12px}
+/* PREVIEW */
+.prev-box{background:var(--muted);border:1px solid var(--border);border-radius:12px;padding:14px;
+  font-family:'Geist Mono',monospace;font-size:12px;line-height:1.9;color:var(--fg);
+  white-space:pre-wrap;overflow-x:auto}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  height:42px;padding:0 18px;border-radius:12px;font-size:14px;font-weight:700;
+  transition:all .15s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--primary);color:var(--primary-fg)}
+.btn-p:hover{filter:brightness(1.05)}
+.btn-o{background:transparent;color:var(--fg);border:1.5px solid var(--border)}
+.btn-o:hover{background:var(--muted)}
+.btn-g{background:var(--muted);color:var(--fg);border:1px solid var(--border)}
+.btn-g:hover{border-color:var(--primary);color:var(--primary)}
+.btn-sm{height:34px;padding:0 12px;font-size:12px;border-radius:9px}
+.btn-fw{width:100%}
+.brow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.brow2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+/* DATA BERSIH TABS */
+.dtab-row{display:flex;gap:0;margin-bottom:14px;border-radius:10px;overflow:hidden;
+  border:1px solid var(--border)}
+.dtab{flex:1;padding:9px 0;font-size:12px;font-weight:700;color:var(--muted-fg);
+  background:var(--muted);transition:all .15s;border:none}
+.dtab:first-child{border-right:1px solid var(--border)}
+.dtab.on{background:var(--primary);color:var(--primary-fg)}
+/* DATA BERSIH TABLE */
+.dbtbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+.dbtbl{width:100%;border-collapse:collapse;font-size:12px}
+.dbtbl thead{background:var(--muted)}
+.dbtbl th{padding:9px 10px;text-align:left;font-size:11px;font-weight:700;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);white-space:nowrap}
+.dbtbl td{padding:9px 10px;border-bottom:1px solid var(--border2);color:var(--fg);vertical-align:middle}
+.dbtbl tr:last-child td{border-bottom:none}
+.dbtbl tbody tr:hover td{background:var(--p8)}
+.dbtbl .kode-cell{font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted-fg)}
+/* BADGE */
+.bdg{display:inline-flex;align-items:center;padding:2px 7px;border-radius:6px;
+  font-size:10px;font-weight:700;white-space:nowrap}
+.bdg-c{background:var(--p12);color:var(--primary)}
+.bdg-r{background:var(--a10);color:var(--amber)}
+/* DIALOG */
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.5);
+  display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.dlg{background:var(--card);border-radius:20px 20px 0 0;padding:24px 20px 32px;
+  width:100%;max-width:420px;border-top:1px solid var(--border)}
+.dlg-ttl{font-size:16px;font-weight:800;margin-bottom:6px}
+.dlg-desc{font-size:13px;color:var(--muted-fg);margin-bottom:20px;line-height:1.5}
+.dlg-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dlg-cancel{background:var(--muted);color:var(--fg);height:44px;border-radius:12px;font-size:14px;font-weight:700}
+.dlg-ok{background:var(--red);color:#fff;height:44px;border-radius:12px;font-size:14px;font-weight:700}
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(6px);
+  background:var(--fg);color:var(--bg);padding:10px 20px;border-radius:20px;
+  font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:9999;white-space:nowrap}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* DIVIDER */
+.div-lbl{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.8px;color:var(--muted-fg);margin:14px 0 10px}
+.div-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-logo">
+    <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+      <rect x="4" y="4" width="40" height="40" rx="11"/>
+      <path d="M15 33V15M15 33H33M24 33V22M33 33V20" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="hdr-ttl">Request Material</span>
+  </div>
+  <div class="hdr-right">
+    <button class="icon-btn" id="theme-btn" onclick="toggleTheme()">🌙</button>
+  </div>
+</header>
+
+<div class="body">
+
+  <!-- TANGGAL -->
+  <div class="date-row">
+    <label>Tanggal Request</label>
+    <input type="date" id="tgl"/>
+  </div>
+
+  <!-- KAPAL / PROJECT -->
+  <div class="slbl">Kapal / Project</div>
+  <div class="kapal-card">
+    <div class="kapal-sel-row" onclick="toggleKdd()">
+      <div class="kapal-ico">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2"/>
+          <path d="M7 20V10M12 20V4M17 20v-6"/>
+          <path d="M2 16l3-3 3 3 4-4 3 3 3-3 2 2"/>
+        </svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div class="kapal-name" id="kapal-name">— Pilih Kapal / Project —</div>
+        <div class="kapal-hint">Ketuk untuk mengganti</div>
+      </div>
+      <button class="kapal-chg" type="button">Pilih</button>
+    </div>
+    <div class="kdd" id="kdd">
+      <div class="kdd-list" id="kdd-list"></div>
+      <div class="kdd-actions">
+        <button class="kdd-act add" type="button" onclick="showAddKapal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tambah Kapal
+        </button>
+        <button class="kdd-act del" type="button" onclick="confirmDelKapal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+          Hapus Kapal
+        </button>
+      </div>
+      <div class="kdd-addform" id="kdd-addform">
+        <div class="field">
+          <label class="flbl">Nama Kapal / Project</label>
+          <input type="text" id="new-kapal" placeholder="cth. BG ATK 311 / Proyek Dok 3"/>
+        </div>
+        <div class="brow2" style="margin-top:8px">
+          <button class="btn btn-g btn-sm" type="button" onclick="hideAddKapal()">Batal</button>
+          <button class="btn btn-p btn-sm" type="button" onclick="addKapal()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INPUT MATERIAL -->
+  <div class="card">
+    <div class="card-hdr">
+      <div class="cico cg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-ttl">Input Material</div>
+        <div class="card-sub">Cari & pilih material, lalu isi jumlah</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="fs">
+
+        <!-- NAMA MATERIAL SEARCH -->
+        <div class="field">
+          <label class="flbl">Nama Material</label>
+          <div class="msw">
+            <span class="msw-ico">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </span>
+            <input type="text" id="mat-q" placeholder="Ketik nama atau kode material..."
+              autocomplete="off" oninput="onSearch()" onfocus="onSearch()"/>
+            <div class="mres" id="mres"></div>
+          </div>
+          <div class="msel" id="msel">
+            <span class="msel-kode" id="msel-kode">—</span>
+            <span class="msel-name" id="msel-name">—</span>
+            <button class="msel-clear" type="button" onclick="clearMat()">×</button>
+          </div>
+        </div>
+
+        <!-- KODE (auto-fill) -->
+        <div class="field">
+          <label class="flbl">Kode Material <span class="opt">(otomatis terisi)</span></label>
+          <input type="text" id="mat-kode" class="kode-inp" readonly placeholder="Pilih material dahulu..."/>
+        </div>
+
+        <!-- JUMLAH + SATUAN -->
+        <div class="fr">
+          <div class="field">
+            <label class="flbl">Jumlah</label>
+            <input type="number" id="mat-qty" placeholder="0" min="0" step="0.01"/>
+          </div>
+          <div class="field">
+            <label class="flbl">Satuan</label>
+            <div class="toggle3" id="sat-toggle">
+              <button class="tbtn on" data-v="KG" onclick="setSat(this)">KG</button>
+              <button class="tbtn" data-v="EA" onclick="setSat(this)">EA</button>
+              <button class="tbtn" data-v="SHT" onclick="setSat(this)">SHT</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VALUATION -->
+        <div class="field">
+          <label class="flbl">Valuation</label>
+          <div class="toggle2">
+            <button class="tbtn on" id="val-new" onclick="setVal('NEW')">NEW</button>
+            <button class="tbtn" id="val-oc" onclick="setVal('OFF-CUT')">OFF-CUT</button>
+          </div>
+        </div>
+
+        <!-- UKURAN (raw material only) -->
+        <div class="ukuran-wrap" id="ukuran-wrap">
+          <label class="flbl">Ukuran <span class="opt">(opsional, Raw Material)</span></label>
+          <input type="text" id="mat-ukuran" placeholder="cth. 8×1800×6000 MM"/>
+        </div>
+
+      </div>
+
+      <div class="brow" style="margin-top:16px">
+        <button class="btn btn-p" type="button" onclick="addItem()" style="flex:1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tambah ke Daftar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAFTAR ITEM -->
+  <div class="card">
+    <div class="card-hdr">
+      <div class="cico cg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-ttl">Daftar Material Request</div>
+        <div class="card-sub" id="item-ct-lbl">0 item</div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-top:10px">
+      <div class="il" id="il"></div>
+    </div>
+  </div>
+
+  <!-- PREVIEW & AKSI -->
+  <div class="card">
+    <div class="card-hdr">
+      <div class="cico ca">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.36 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 17z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-ttl">Preview & Kirim WA</div>
+        <div class="card-sub">Generate teks untuk grup WhatsApp</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="brow2">
+        <button class="btn btn-o" type="button" onclick="genPreview()">Preview WA</button>
+        <button class="btn btn-p" type="button" onclick="saveToGAS()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Simpan
+        </button>
+      </div>
+
+      <!-- PREVIEW BOX -->
+      <div id="prev-section" style="display:none;margin-top:14px">
+        <div class="prev-box" id="prev-box"></div>
+        <div class="brow">
+          <button class="btn btn-g btn-sm" type="button" onclick="copyPrev()" style="flex:1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Salin Teks
+          </button>
+          <button class="btn btn-p btn-sm" type="button" onclick="shareWA()" style="flex:1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+              <polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+            </svg>
+            Buka WA
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA BERSIH — hanya muncul jika ada item tersimpan -->
+  <div class="card" id="db-card" style="display:none">
+    <div class="card-hdr">
+      <div class="cico cb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-ttl">Data Bersih</div>
+        <div class="card-sub">Rekap tersimpan — dipisah Full &amp; Consumable</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- TAB SWITCH -->
+      <div class="dtab-row">
+        <button class="dtab on" id="db-tab-full" onclick="switchDBTab('full')">Full Material</button>
+        <button class="dtab" id="db-tab-con" onclick="switchDBTab('con')">Consumable Only</button>
+      </div>
+      <!-- TABLE -->
+      <div class="dbtbl-wrap">
+        <table class="dbtbl">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Kode</th>
+              <th>Nama Material</th>
+              <th>Jml</th>
+              <th>Sat</th>
+              <th>Val</th>
+              <th>Kategori</th>
+            </tr>
+          </thead>
+          <tbody id="db-tbody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted-fg)" id="db-info"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DIALOG -->
+<div class="overlay" id="dlg-overlay" onclick="closeDlg()">
+  <div class="dlg" onclick="event.stopPropagation()">
+    <div class="dlg-ttl" id="dlg-ttl">—</div>
+    <div class="dlg-desc" id="dlg-desc">—</div>
+    <div class="dlg-btns">
+      <button class="dlg-cancel" onclick="closeDlg()">Batal</button>
+      <button class="dlg-ok" id="dlg-ok" onclick="doDlg()">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const GAS="https://script.google.com/macros/s/AKfycbyxCw9WY7Euwr__z5Lws7hhi9TaaDCHVj6CcnjzjY_jtOgDbhIUWtilfNsvxQHBYYnzNA/exec";
+
+/* ── MASTER MATERIAL DB (Sheet2) ──────────────────────
+   Format per item: [kode, nama, satuan, kategori]
+   Consumable = Gas (Oxygen/LPG) + semua Kawat Las / Welding Electrodes & Wire
+─────────────────────────────────────────────────────── */
+var MM=[['00925442-1022','HEX HEAD BOLT_M10-1.5X40_FULL THREAD','EA','Raw Material'],['01010-61655','BOLT, MACHINE','EA','Raw Material'],['0159835001','CONTROL TRANSFORMER','EA','Raw Material'],['0191017103','MAIN CONTACTOR','EA','Raw Material'],['0191053111','VOLTMETER','EA','Raw Material'],['0191060118','AMMETER_2.5KA','EA','Raw Material'],['02762-00421','HOSE','EA','Raw Material'],['02763-00412','HOSE FUEL','EA','Raw Material'],['0490600605','DIODE_BLUE MARKING','EA','Raw Material'],['0490600625','DIODE_RED MARKING','EA','Raw Material'],['04QBANSMA','JOTAFIX PU TOPCOAT BLACK','L','Raw Material'],['04QBANSMA/GRN','JOTAFIX PU TOPCOAT GREEN','L','Raw Material'],['04QBANSMA/GRN2','JOTAFIX PU TOPCOAT GREEN','L','Raw Material'],['04QBAWSMA','JOTAFIX PU TOPCOAT WHITE','L','Raw Material'],['0533104701','MAIN SWITCH','EA','Raw Material'],['0648000404','FAN COMPLETTE','EA','Raw Material'],['0700-15195','O RING KOMATSU','EA','Raw Material'],['07000-12012','O-RING','EA','Raw Material'],['07000-12021','O-RING','EA','Raw Material'],['07000-13028','O-RING','EA','Raw Material'],['07000-13032','O-RING W3MM D32MM','EA','Raw Material'],['07000-13036','O-RING W3MM D36MM','EA','Raw Material'],['07097-21015','HOSE','EA','Raw Material'],['08230-00000','THINNER HEMPELS','L','Raw Material'],['08450-00000','THINNER HEMPELS','L','Raw Material'],['08XDRDWVA','SEAFORCE SHIELD DARK RED','L','Raw Material'],['092202WVA','THINNER NO. 02','L','Raw Material'],['092207WVA','THINNER NO 07','L','Raw Material'],['092210FVA','THINNER NO. 10','L','Raw Material'],['092217WVA','THINNER NO. 17','L','Raw Material'],['09244-02496','PIN','EA','Raw Material'],['0AR099SVA','JOTAMASTIC 80 BLACK','L','Raw Material'],['0ARGRESVA','JOTAMASTIC 80 GREY','L','Raw Material'],['0ARGRNSVA','JOTAMASTIC 80 GREEN','L','Raw Material'],['0ARREDSVA','JOTAMASTIC 80 RED','L','Raw Material'],['0FNBA5EQA','PILOT II YELLOW','L','Raw Material'],['0QZPLMRVA','SAFEGUARD UNIVERSAL ES','L','Raw Material'],['0S4099RVA','JOTAGUARD 660 BLACK','L','Raw Material'],['0S4GRERVA','JOTAGUARD 660 GREY','L','Raw Material'],['0S4REDRVA','JOTAGUARD 660 RED','L','Raw Material'],['0T1GRESVA','JOTAGUARD 630 GREY','L','Raw Material'],['0T1REDSVA','JOTAGUARD 630 RED','L','Raw Material'],['1000.01601','THINNER 1601 (THINNER PU, ACRYLIC)','L','Raw Material'],['1000.01625','THINNER 1625_POLYURETHANE (PU) THINNER','L','Raw Material'],['1000.01660','THINNER 1660 (THINNER EPOXY)','L','Raw Material'],['100005424','OIL SEPARATOR','EA','Raw Material'],['10171611-0002','CEMICAL ARUOW CALSIUM','KG','Raw Material'],['10171701-0007','HERBICIDE ROUNDAP 486 SL','EA','Raw Material'],['10402147-0001','RED LIPSTICK','EA','Raw Material'],['11101518-0001','CHALK POWDER','KG','Raw Material'],['11111701-0010','SILICA SAND','KG','Raw Material'],['11111806-0001','MODELING CLAY @500GRM','EA','Raw Material'],['11151505-0001','ASBESTOS TAPE 5MM','ROL','Raw Material'],['11151505-0002','PITA KAIN','ROL','Raw Material'],['11151512-0001','GLASS PAPER (PLASTIK MUKA) CUT INTO 4','ROL','Raw Material'],['11151515-0001','SERAT BALON HALUS @166.67GRAM/MTR','G','Raw Material'],['11151515-0002','SERAT BALON KASAR @800GRM/MTR','G','Raw Material'],['11162107-0001','RESIN CATION @25KG','L','Raw Material'],['115300-4280','INJECTION NOZZLE ASSY','EA','Raw Material'],['12050-50410','PAINT HEMPALIN PRIMER BROWN','L','Raw Material'],['12142116-0001','GAS OXYGENT ORIGINAL','EA','Consumable'],['12181601-0003','FLUID, POWER STEERING, ATF, DM-3, DEXRON','BT','Raw Material'],['12352316-0010','SODA API / SODIUM HYDROXIDE','EA','Raw Material'],['126-1818','OIL FILTER','EA','Raw Material'],['13111204-0001','MIKA FILM TBL 0,20','SHT','Raw Material'],['150-27-00330','FLOATING SEAL','EA','Raw Material'],['15101505-0007','FUEL BIOSOLAR','L','Raw Material'],['15111510-0007','GAS LPG 50KG ORIGINAL','EA','Consumable'],['15121501-0044','LUBE RORED HDA MIN 90 GL-5 DR (SAE90)','DR','Raw Material'],['15121501-0047','LUBE MEDITRAN S SAE30 PERTAMINA','DR','Raw Material'],['15121501-0048','LUBE MEDITRAN SX PLUS SAE 15W-40','DR','Raw Material'],['15121501-0049','LUBE OMALA S2 GX 320','DR','Raw Material'],['15121501-0057','LUBE RORED HDA SAE 140 GL-5 (4LTR)','PL','Raw Material'],['15121902-0003','GREASE EPX2NL KG','KG','Raw Material'],['15420-2OUTBOW','SOCKET OUTLET 2 OUTBOW 250V/16A','EA','Raw Material'],['15607-1731','LUBE FILTER','EA','Raw Material'],['15ASG-19990','PAINT HEMPADUR BLACK','L','Raw Material'],['15ASG-67120','PAINT HEMPADUR BROWN','L','Raw Material'],['1614765','TIRE VALVE STEM','EA','Raw Material'],['17634-11480','PAINT HEMPADUR QUATTRO GREY','L','Raw Material'],['17634-22090','PAINT HEMPADUR QUATTRO BEIGE','L','Raw Material'],['17634-50630','PAINT HEMPADUR QUATTRO RED','L','Raw Material'],['188-5500','CARRIER ROLLER CAT','EA','Raw Material'],['193-4640','SPIDER & BEARING GP','EA','Raw Material'],['1979679','SEGMENT','EA','Raw Material'],['1P-2299','FILTER A-F CAT','EA','Raw Material'],['2010PM','RACOR FILTER DONALDSON','EA','Raw Material'],['20111707-0001','BOR JANGKA 30 - 120MM','EA','Raw Material'],['20121610-0001','DRILL BIT BETON 8MM','EA','Raw Material'],['20121610-0002','DRILL BIT MITSUBISHI 20MM','EA','Raw Material'],['20121610-0003','STRAIGHT SHANK DRILL HSS 10MM (NACHI)','EA','Raw Material'],['20121613-0001','STRAIGHT SHANK DRILL HSS 12MM','EA','Raw Material'],['20122372-0001','SWIVEL JOINT 38 MM','EA','Raw Material'],['20122401-0001','ANTENNA CABLE SSB RG. U8-512 OHM','M','Raw Material'],['208-62-72480','HOSE 1080MM','EA','Raw Material'],['20Y-27-00110','SEAL ASSY','EA','Raw Material'],['20Y-27-21220','PIN','EA','Raw Material'],['20Y-27-21240','BEARING, WASHER, THRUST','EA','Raw Material'],['20Y-27-22210','BEARING, ROLLER, NEEDLE','EA','Raw Material'],['20Y-27-41120','SUN GEAR KOMATSU','EA','Raw Material'],['20Y-27-41180','LOCK PLATE KOMATSU','EA','Raw Material'],['20Y-27-77110','SPROCKET','EA','Raw Material'],['20Y-30-00481','CARRIER ROLLER','EA','Raw Material'],['20Y-30-00642','FRONT IDLER STD','EA','Raw Material'],['20Y-30-00671','CARRIER ROLLER','EA','Raw Material'],['20Y-30-07300','ROLLER','EA','Raw Material'],['20Y-30-42110','YOKE','EA','Raw Material'],['20Y-32-11260','SEAL','EA','Raw Material'],['20Y-60-32121','SOLENOID ASS\'Y','SET','Raw Material'],['20Y-62-12520','HOSE','EA','Raw Material'],['20Y-62-13412','HOSE ASSY','EA','Raw Material'],['20Y-62-41181','HOSE','SET','Raw Material'],['20Y-62-51230','HOSE','EA','Raw Material'],['20Y-62-51240','HOSE','EA','Raw Material'],['20Y-62-51531','HOSE','EA','Raw Material'],['20Y-62-51541','HOSE','EA','Raw Material'],['20Y-62-51790','HOSE','EA','Raw Material'],['20Y-62-51922','HOSE ASSY','SET','Raw Material'],['20Y-62-52340','HOSE KOMATSU','EA','Raw Material'],['20Y-62-52350','HOSE KOMATSU','EA','Raw Material'],['21101801-0003','SPRAY TIP TITAN 615','EA','Raw Material'],['22101529-0002','ROLLER BLOCK OD 8"  ( U/WIRE 16MM )','EA','Raw Material'],['226-0443','BELT SERPENTINE','EA','Raw Material'],['22B-54-17511','WORK LAMP ASSY','EA','Raw Material'],['22B-60-11160','STRAINER','EA','Raw Material'],['23022CC/W33','SPHERICAL ROLLER BEARING SKF','UN','Raw Material'],['23131503-0022','GRINDING DISC DIA 7 INCH','EA','Raw Material'],['23131503-0039','GRINDING DISC WIPRO GC120H-4460RPM W-13','EA','Raw Material'],['23131503-0040','GRINDING DISC WIPRO GC80L-4460RPM W-13','EA','Raw Material'],['23131513-0001','SANDING DISC 6"','EA','Raw Material'],['23131513-0002','SANDING DISC 7"','EA','Raw Material'],['23151513-0001','KARET TAMBAL LEBAR 75CM','EA','Raw Material'],['23151513-0002','LEM HITAM BINTIK-BINTIK','EA','Raw Material'],['23151513-0003','LEM RUBBER BOAT PUTIH','EA','Raw Material'],['23153032-0001','RING BESI ID 115, OD 150, THK 20 MM','EA','Raw Material'],['23181604-0001','MATA CUTTING TORCH SIZE : 1/16 NO. 3','EA','Raw Material'],['23181604-0003','MATA CUTTING TORCH SIZE : 5/64 NO. 4','EA','Raw Material'],['23226CCK/W33','SPHERICAL ROLLER BEARING SKF','EA','Raw Material'],['23241639-0005','STRAIGHT SHANK DRILL HSS 5MM','EA','Raw Material'],['23241639-0007','STRAIGHT SHANK DRILL HSS 8MM','EA','Raw Material'],['23271711-0006','PLASMA CUTTING ELECTRODE TIP 60A 1.3MM','EA','Raw Material'],['23271711-0014','NOZZEL CUTTING YAMATO 3/16, 1/32','EA','Raw Material'],['23271711-0018','PLASMA CUTTING NOZZLE TIP 60A 1.3MM','EA','Raw Material'],['23271711-0020','CUTTING TIP M LPG NO 2','EA','Raw Material'],['23271711-0021','CUTTING TIP M LPG NO 3','EA','Raw Material'],['23271711-0025','PLASMA CUTTING NOZZLE TIP 100A 1.7MM','EA','Raw Material'],['23271717-0006','FLASHBACK ARRESTOR OXYGEN-CUTTING TORCH','EA','Raw Material'],['23271717-0007','FLASHBACK ARRESTOR LPG-CUTTING TORCH','EA','Raw Material'],['23271717-0008','SAFETY FLASHBACK OXYGEN-REGULATOR','EA','Raw Material'],['23271717-0009','SAFETY FLASHBACK LPG/ACETYLENE-REGULATOR','EA','Raw Material'],['23271810-0110','WELDING ELECTRODES NK88 3,2MM','KG','Consumable'],['23271810-0111','WELDING ELECTRODES NK88 4MM','KG','Consumable'],['23271810-0112','WELDING ELECTRODES NSG 4,0MM','KG','Consumable'],['23271810-0115','WELDING ELECTRODES NSN-308 4MM','KG','Consumable'],['23271810-0121','WELDING ELECTRODES RD-460 4MM','KG','Consumable'],['23271810-0124','WELDING ELECTRODES NK88 2,6MM','KG','Consumable'],['23271810-0126','WELDING ELECTRODES RD-718 3,2MM','KG','Consumable'],['23271810-0127','WELDING ELECTRODES 4MM HV450','KG','Consumable'],['23271810-0128','WELDING ELECTRODES 4MM HV600','KG','Consumable'],['23271810-0129','WELDING ELECTRODES CARBON 4MM','KG','Consumable'],['23271810-0130','WELDING ELECTRODES CARBON 6MM','KG','Consumable'],['23271810-0133','WELD ELECTRODES 5"X400MM J38.12 E6013AWS','KG','Raw Material'],['23271810-0134','WELD ELECTRODES BRIDGE 5MM J421 E6013AWS','KG','Raw Material'],['23271813-0004','WELDING WIRE BRONZE 4 MM','KG','Consumable'],['23271813-0006','WELD WIRE AWS.EM12 THM-43A GB H08MNA 4MM','KG','Raw Material'],['23271821-0009','PLASMA CUTTING TORCH 60A-120A CURRENT','EA','Raw Material'],['234-1951','SEAL LIFT CYL','EA','Raw Material'],['24101611-0032','SLING BELT 3TX3MTR','EA','Raw Material'],['24101638-0022','WIRE ROPE SLING 6X36 IWRC 1770 N/MM2X50M','EA','Raw Material'],['24101638-0039','THIMBLE EYE WIRE ROPE_52MMX25M_6X36','EA','Raw Material'],['24101641-0019','KENTER SHACKLE_34MM_LR CERTIF','EA','Raw Material'],['24101641-0031','ANCHOR SHACKLE_38MM_U2 GRADE_LR CERTIF','EA','Raw Material'],['24101641-0042','JOINING SHACKLE_36MM_LR CERTIF','EA','Raw Material'],['24101641-0050','KENTER SHACKLE_19MM_LR CERTIF','EA','Raw Material'],['24101641-0054','KENTER SHACKLE_32MM_LR CERTIF','EA','Raw Material'],['24101641-0056','KENTER SHACKLE_38MM_LR CERTIF','EA','Raw Material'],['24101641-0076','SHACKLE OMEGA BOLT 1"-8,5T','EA','Raw Material'],['24101641-0077','SHACKLE OMEGA BOLT 2-1/2"-55T','EA','Raw Material'],['24101641-0078','SHACKLE OMEGA BOLT 2"-35T','EA','Raw Material'],['24101641-0079','SHACKLE OMEGA BOLT 3/4"-4,75T','EA','Raw Material'],['24101641-0112','SHACKLE D BOLT 1/2"-2T','EA','Raw Material'],['24101641-0116','ANCHOR SHACKLE 5/8" M16','EA','Raw Material'],['24101641-0117','SHACKLE 1/2"  GALV','EA','Raw Material'],['24101641-0118','SHACKLE FENDER M20','EA','Raw Material'],['24111818-0002','SEAL VALVE STEM 32A04-02801','EA','Raw Material'],['24111818-0003','SEGMENT','SET','Raw Material'],['24111818-0006','SEAL TAPE 1"','EA','Raw Material'],['24111818-0008','SEAT VALVE INSERT ( A ) P/N 897037-6860','EA','Raw Material'],['24111818-0009','SEAT VALVE INSERT ( B ) P/N 511711-0280','EA','Raw Material'],['24112111-0001','STAVOL 600 VA','EA','Raw Material'],['24112208-0001','SPRAY TIP 517','EA','Raw Material'],['24112208-0002','SPRAY TIP 521','EA','Raw Material'],['24141501-0001','STRETCH WRAP FILMS','ROL','Raw Material'],['24141504-0001','INDICATIVE SEAL','EA','Raw Material'],['25171502-0002','WIPER AC 220V','SET','Raw Material'],['25171708-0001','KAMPAS KOPLING FORKLIFT S6S','EA','Raw Material'],['25171713-0002','BRAKE LINING 100X10MMX1MTR','M','Raw Material'],['25171713-0004','BRAKE LINING 100X8MMX1MTR','M','Raw Material'],['25171713-0005','BRAKE LINING 120X20MMX1MTR','M','Raw Material'],['25171713-0006','BRAKE LINING 150X10MMX1MTR','M','Raw Material'],['25171713-0008','BRAKE LINING 150X20MMX1MTR','M','Raw Material'],['25171713-0015','BRAKE LINING 50X10MMX1MTR','M','Raw Material'],['25172011-0001','SPRING @14KG ( SHOCK ABSORBER )','EA','Raw Material'],['25172502-0061','INNER TUBE TYRE 7.00-12 TR-75A','EA','Raw Material'],['25172503-0003','TYRE FENDER EX LOADER R25 SIZE 23,5','EA','Raw Material'],['25172503-0034','HEAVY TRUCK TIRE_SIZE 7.50-16 14PLY','EA','Raw Material'],['25172503-0038','SKID-STEER TUBELESS TIRE_12 X 16.5-12PLY','EA','Raw Material'],['25172504-0006','TYRE FORKLIFT (TUBE) SIZE 7.00-12 12PR','EA','Raw Material'],['25172504-0008','TYRE FORKLIFT (TUBE) SIZE 8.25-15 14PR','EA','Raw Material'],['25172509-0003','HEAVY TRUCK TIRE INNER TUBE_SIZE 7.50-16','EA','Raw Material'],['25172509-0004','HEAVY TRUCK TIRE FLAP_SIZE 7.50-16','EA','Raw Material'],['25172511-0014','TIRE PLUG PATCH SLP 6X35X50MM','BOX','Raw Material'],['25172511-0015','TUBE PATCH NO 5 (TIP TOP)','BOX','Raw Material'],['25172511-0018','TIRE PLUG PATCH SLP 9X40X75MM','BOX','Raw Material'],['25172511-0019','TIRE PLUG PATCH SLP 12X45X75MM','BOX','Raw Material'],['25172511-0020','TIRE SEAL STRING_6MM DIA_2MM LENGTH','BOX','Raw Material'],['25173807-0008','SHAFT 2034','EA','Raw Material'],['25173815-0001','CABLE SUB-AS PARKING BRK 47504-36780-71','EA','Raw Material'],['25173815-0002','CABLE SUB-AS PARKING BRK 47505-36780-71','EA','Raw Material'],['25174003-0001','RADIATOR CAP MD','EA','Raw Material'],['25174004-0005','SUPER COOLANT AF-NAC 18LTR KOMATSU','EA','Raw Material'],['25174004-0008','PERTAMINA HD COOLANT EG','EA','Raw Material'],['25202509-0001','SHOCK FEMALE THREADED 2 1/2"','EA','Raw Material'],['25202509-0002','SHOCK THREADED 1 1/2"','EA','Raw Material'],['25202509-0003','SHOCK THREADED 1"','EA','Raw Material'],['25202509-0005','SHOCK TRANFOSIAL 1/2"','EA','Raw Material'],['25202509-0006','SHOCK TRANFOSIAL 1-1/2"','EA','Raw Material'],['25202509-0007','SHOCK INSIDE THREAD 1/2`','EA','Raw Material'],['256-7902','AIR CLEANER PRIMARY','EA','Raw Material'],['256-7903','AIR CLEANER SECONDARY','EA','Raw Material'],['26101727-0010','RING PISTON ZH 115 4R','EA','Raw Material'],['26101728-0001','TUBE NO. 4, 5 6754-71-5230','EA','Raw Material'],['26111703-0037','BATTERY (ACCU) N120 12V/120A','EA','Raw Material'],['26111703-0044','BATTERY (ACCU) 12V/150A','EA','Raw Material'],['26111703-0046','BATTERY (ACCU) 12V/70A','EA','Raw Material'],['26111801-0073','VAN BELT B63','EA','Raw Material'],['26111801-0085','VAN BELT A58','EA','Raw Material'],['26111801-0087','VAN BELT B86-8860MBO','EA','Raw Material'],['26111801-0089','V-BELT 5540/17 X 1350','EA','Raw Material'],['26121548-0001','WIRE EMAIL 0,35MM','KG','Raw Material'],['26121548-0002','WIRE EMAIL 0.65MM','KG','Raw Material'],['2656F843','FUEL FILTER PERKINS','EA','Raw Material'],['27111602-0032','SLEDGE HAMMER 5KG','EA','Raw Material'],['27111708-0005','WRENCH PIPE 24"','EA','Raw Material'],['27111802-0003','GLASS PENDUGA 12 MM X 2 MTR','EA','Raw Material'],['27111907-0021','IRON BRUSH','EA','Raw Material'],['27111907-0022','MINI AIR GRINDER','EA','Raw Material'],['27111907-0023','MINI WIRE CUP BRUSH','EA','Raw Material'],['27111907-0025','WIRE CUP BRUSH 3" ( M10 X 1.5 )','EA','Raw Material'],['27111930-0001','SMOOTH ROUND FILES','EA','Raw Material'],['27112129-0001','CABLE CLAMP 1\'\'','EA','Raw Material'],['27112129-0002','CABLE CLAMP 1/2\'\'','EA','Raw Material'],['27112501-0010','BENDING SPRING PIPE 25MM','EA','Raw Material'],['27112701-0015','PLASTIC BLOWER 20CM X 8CM','ROL','Raw Material'],['27112739-0001','VC-BELT ALTERNATOR FORKLIFT S6S','EA','Raw Material'],['27112749-0001','ANGEL GRINDER SXJ 150 120 T','UN','Raw Material'],['27112802-0003','HACKSAW BLADE 12" 24TPI','EA','Raw Material'],['27112802-0004','CHAINSAW MS 180','EA','Raw Material'],['27112805-0001','HAND TAB M1 X 8','EA','Raw Material'],['27112838-0015','CUTTING WHEEL 14"','EA','Raw Material'],['27112838-0016','CUTTING WHEEL 4"','EA','Raw Material'],['27112839-0002','TRIANGLE CARBIDE TIP 10MM','EA','Raw Material'],['27112913-0002','LUBE GC32 PERTAMINA','L','Raw Material'],['27112913-0004','LUBE TURALIK 43 @209LTR','L','Raw Material'],['27112913-0006','PERTAMINA RORED HAD SAR 90API GL-5 @4LTR','BT','Raw Material'],['27121701-0109','HYD HOSE 1/4" X 4MTR (AS SAMPLE)','EA','Raw Material'],['27121701-0110','HYD HOSE 3/8 X 2W UNIHOSE X 165CM','EA','Raw Material'],['27121701-0111','HYD HOSE 3/8 X 350CM - PLT06','EA','Raw Material'],['27121816-0001','CALTER OLI ( BELLOW )','EA','Raw Material'],['27131613-0002','COUPLING GUN 1"','EA','Raw Material'],['278-2355','SEGMENT','EA','Raw Material'],['278-2356','SEGMENT DOZER D3K CAT','EA','Raw Material'],['2923911','OIL SEAL HITACHI','EA','Raw Material'],['2A5-30-00111','TRACK ROLLER','EA','Raw Material'],['2S-5301','SEAL 25-5301 CAT','EA','Raw Material'],['2S-5551','COUPLING CAT','EA','Raw Material'],['30101504-0004','ANGLE BAR EA M/S 100X100X10X6000MM','EA','Raw Material'],['30101504-0007','ANGLE BAR EA M/S 120X120X12X6000MM','EA','Raw Material'],['30101504-0008','ANGLE BAR EA M/S 150X150X12X6000MM','EA','Raw Material'],['30101504-0010','ANGLE BAR UA M/S 150X90X9X6000MM','EA','Raw Material'],['30101504-0013','ANGLE BAR EA M/S 50X50X5X6000MM','EA','Raw Material'],['30101504-0019','ANGLE BAR EA M/S 75X75X6X6000MM','EA','Raw Material'],['30101504-0022','ANGLE BAR EA M/S 80X80X8X6000MM','EA','Raw Material'],['30101504-0059','ANGLE BAR EA M/S 150X150X10X6000MM','EA','Raw Material'],['30101504-0075','ANGLE BAR UA M/S 125X75X10X6000MM','EA','Raw Material'],['30101504-0103','ANGLE BAR UA M/S_150X90X10MM_6000MM','EA','Raw Material'],['30101704-0001','H BEAM M/S 150X150X7X10X6000MM','EA','Raw Material'],['30101704-0003','H BEAM M/S 200X200X8X12X6000MM','EA','Raw Material'],['30101704-0004','H BEAM M/S 300X300X10X15X6000MM','EA','Raw Material'],['30101704-0005','H BEAM M/S 350X350X12X19X6000MM','EA','Raw Material'],['30102201-0010','SHEET PLATE ALUMINIUM 2X1200X2400MM','SHT','Raw Material'],['30102204-0017','SHEET PLATE M/S A36 ABS-A 12X1800X6000MM','SHT','Raw Material'],['30102204-0018','SHEET PLATE M/S A36 ABS-A 14X1800X6000MM','SHT','Raw Material'],['30102204-0019','SHEET PLATE M/S A36 ABS-A 16X1800X6000MM','SHT','Raw Material'],['30102204-0020','SHEET PLATE M/S A36 ABS-A 8X1800X6000MM','SHT','Raw Material'],['30102204-0021','SHEET PLATE M/S A36 BKI-A 10X1800X6000MM','SHT','Raw Material'],['30102204-0022','SHEET PLATE M/S A36 BKI-A 12X1800X6000MM','SHT','Raw Material'],['30102204-0023','SHEET PLATE M/S A36 BKI-A 14X1800X6000MM','SHT','Raw Material'],['30102204-0024','SHEET PLATE M/S A36 BKI-A 16X1800X6000MM','SHT','Raw Material'],['30102204-0025','SHEET PLATE M/S A36 BKI-A 20X1800X6000MM','SHT','Raw Material'],['30102204-0026','SHEET PLATE M/S A36 BKI-A 6X1800X6000MM','SHT','Raw Material'],['30102204-0027','SHEET PLATE M/S A36 BKI-A 8X1800X6000MM','SHT','Raw Material'],['30102204-0029','SHEET PLATE M/S A36 NC 10X1800X6000MM','SHT','Raw Material'],['30102204-0039','SHEET PLATE M/S A36 NC 25X1800X6000MM','SHT','Raw Material'],['30102204-0045','SHEET PLATE M/S A36 NC 6X1800X6000MM','SHT','Raw Material'],['30102204-0047','SHEET PLATE M/S A36 NC 8X1800X6000MM','SHT','Raw Material'],['30102204-0051','STRIP PLATE M/S 12X100X6000MM','SHT','Raw Material'],['30102204-0053','STRIP PLATE M/S 12X75X6000MM','SHT','Raw Material'],['30102204-0055','STRIP PLATE M/S 4,5X50X6000MM','SHT','Raw Material'],['30102204-0071','SHEET PLATE M/S A36 BKI-A 25X1800X6000MM','SHT','Raw Material'],['30102204-0076','BANDED PLATE 8MMX400+F100X20FT BKI','SHT','Raw Material'],['30102204-0083','CHECKERED PLATE 4X1200X2400MM','SHT','Raw Material'],['30102204-0084','CHECKERED PLATE 6X1200X2400MM','SHT','Raw Material'],['30102204-0085','BANDED PLATE 10MMX500+F100X20FT BKI','SHT','Raw Material'],['30102204-0090','SHEET PLATE M/S A36 ABS-A 10X1800X6000MM','SHT','Raw Material'],['30102204-0092','SHEET PLATE M/S A36 NC 12X1800X6000MM','SHT','Raw Material'],['30102204-0094','SHEET PLATE M/S A36 NC 14X1800X6000MM','SHT','Raw Material'],['30103201-0002','GRATING C/S 1X3/16"X900X6000MM','SHT','Raw Material'],['30111601-0009','CEMENT, SC2000 @690ML + HARDENER @40ML','KIT','Raw Material'],['30111601-0017','WHITE CEMENT','KG','Raw Material'],['30111601-0025','CEMENT 50KG','SAK','Raw Material'],['30111903-0004','WIRE MESH FOR MOSQUITO (SMALL HOLE)','M','Raw Material'],['30111903-0010','WIRE GAUZE 2X2MM','M','Raw Material'],['30141508-0002','INSULATION GLASSWOOL DENSITY 32MG/M2','ROL','Raw Material'],['30161809-0001','PAD AIRLEST','EA','Raw Material'],['30161809-0002','PAD GT 0960','EA','Raw Material'],['30171606-0001','SIDE SCUTTLE ( JENDELA BULAT ) 16"','EA','Raw Material'],['30181506-0001','URINOR DUTY U-17 BLUE','EA','Raw Material'],['30262501-0001','BRONZE HOLLOW BAR ID 31 X OD 70 X 6000MM','KG','Raw Material'],['30263202-0001','STRIP LH 95 1045','EA','Raw Material'],['30263601-0003','ROUND BAR_6IN X 6000MM_S45C GRADE','EA','Raw Material'],['30263601-0004','ROUND BAR_6-1/2IN X 6000MM_S45C GRADE','EA','Raw Material'],['30266408-0001','NON ASBESTOS TAPE 2"','M','Raw Material'],['30266408-0004','SELONGSONG ASBES 1MM','M','Raw Material'],['30266501-0001','RUBBER STRIP 5317742-150MM','EA','Raw Material'],['30840+95881','PAINT HEMPADUR MASTIC BLUE /W CURING AG','L','Raw Material'],['31151503-0004','PP ROPE MONOFILAMENT CIR 12X220MTR','ROL','Raw Material'],['31151503-0008','PP ROPE MONOFILAMENT CIR 8X200MTR','ROL','Raw Material'],['31151503-0009','PP ROPE MULTIFILAMENT CIR 10X220MTR','ROL','Raw Material'],['31151503-0010','PP ROPE MULTIFILAMENT CIR 1-1/4X220MTR','ROL','Raw Material'],['31151505-0027','WIRE GALV 6X36 BOTH FREE 16X135MTR-RHOL','002','Raw Material'],['31151505-0034','WIRE RP GALV 38MM IWRC RHOL GR.1960 6X36','M','Raw Material'],['31151604-0002','CHAIN_3/4IN X 1MTR_GALV','EA','Raw Material'],['31151604-0003','CHAIN_5/8IN X 1MTR_GALV','EA','Raw Material'],['31161505-0050','FISHER 10MM / 100PCS','PAC','Raw Material'],['31161616-0006','U-BOLT GALV 2-1/2" M12','EA','Raw Material'],['31161616-0007','U-BOLT GALV 2X3/8"','EA','Raw Material'],['31161616-0008','U-BOLT GALV 3"X3/8"','EA','Raw Material'],['31161616-0009','U-BOLT GALV 4" M12','EA','Raw Material'],['31161616-0012','U-BOLT GALV 1" M10','EA','Raw Material'],['31161616-0013','U-BOLT GALV 1-1/4" M10','EA','Raw Material'],['31161616-0016','U-BOLT GALV 5" M12','EA','Raw Material'],['31161616-0019','U-BOLT GALV 1-1/2" M10','EA','Raw Material'],['31161616-0023','U-BOLT GALV 6" M16','EA','Raw Material'],['31161616-0024','U-BOLT (STEEL GALVANIZED) 1 1/2"','EA','Raw Material'],['31161616-0025','U-BOLT (STEEL GALVANIZED) 10"','EA','Raw Material'],['31161616-0030','U-BOLT (STEEL GALVANIZED) 8"XM19','EA','Raw Material'],['31161616-0031','U-BOLT 1/2"','EA','Raw Material'],['31161616-0032','U-BOLT 3/4"','EA','Raw Material'],['31161618-0009','THREADED BAR S/S 3/4"X1000MM','EA','Raw Material'],['31161618-0018','THREADED BAR S/S M16X2000MM','EA','Raw Material'],['31161618-0019','THREADED BAR S/S M18X1000MM','EA','Raw Material'],['31161619-0003','STUD BOLT S/S M20 X 1 MTR','EA','Raw Material'],['31161619-0005','STUD SS M 16 X 1 MTR','EA','Raw Material'],['31161619-0006','STUD BOLT 7/8\' X 1 MTR','EA','Raw Material'],['31161620-0075','BOLT, HEX. HEAD, M12X60, FT ZINC PLATED','EA','Raw Material'],['31161620-0082','BOLT STAINLESS STEEL M8 X 20 MM','EA','Raw Material'],['31161620-0083','BOLT STAINLESS STEEL M10 X 20 MM','EA','Raw Material'],['31161620-0091','BOLT STAINLESS STEEL M6 X 40 MM','EA','Raw Material'],['31161727-0004','HEX NUT S/S M16','EA','Raw Material'],['31161727-0005','HEX NUT S/S M20','EA','Raw Material'],['31161727-0009','HEX NUT BLACK GR 8.8 M20','EA','Raw Material'],['31161727-0018','HEX. BOLT & NUT ( GALV\'D ) M6 X 10','EA','Raw Material'],['31161727-0023','HEX BOLT & NUT BLACK (HT8.8) 5/8X2-1/2"','EA','Raw Material'],['31161727-0025','HEX. BOLT & NUT ( HT8.8 ) M18 X 100','EA','Raw Material'],['31161740-0017','HEAD HEX BOLT M12X40 GR8.8','EA','Raw Material'],['31161740-0085','COUNTERSUNK HEAD SCREW BRASS M8X50MM','EA','Raw Material'],['31161740-0087','HEX BOLT & NUT BLACK GR 8.8 3/8X1"','EA','Raw Material'],['31161740-0089','HEX BOLT & NUT GALV GR 8.8 M20X80MM','EA','Raw Material'],['31161740-0093','HEX BOLT & NUT S/S M20X105MM','EA','Raw Material'],['31161740-0094','HEX BOLT & NUT BLACK GR 10.9 M10X50MM','EA','Raw Material'],['31161740-0097','HEX BOLT & NUT S/S M24X140MM','EA','Raw Material'],['31161740-0103','HEX BOLT & NUT BLACK GR 8.8 M16X65MM','EA','Raw Material'],['31161740-0105','HEX BOLT & NUT BLACK GR 8.8 M20X105MM','EA','Raw Material'],['31161740-0109','HEX BOLT & NUT BLACK GR 8.8 M22X115MM','EA','Raw Material'],['31161740-0111','HEX BOLT & NUT BLACK GR 8.8 M24X140MM','EA','Raw Material'],['31161740-0148','HEX BOLT & NUT BLACK GR 8.8 M20X130MM','EA','Raw Material'],['31161740-0194','HEX BOLT & NUT S/S 5/8"X50MM','EA','Raw Material'],['31161740-0196','HEX BOLT & NUT BLACK GR 8.8 M8X40MM','EA','Raw Material'],['31161740-0197','COUNTERSUNK HEAD SCREW BRASS M6X40MM','EA','Raw Material'],['31161740-0215','COUNTERSUNK HEAD SCREW S/S M12X70MM','EA','Raw Material'],['31161740-0306','HEX BOLT & NUT GALV GR 8.8 M20X70MM','EA','Raw Material'],['31161740-0307','HEX BOLT & NUT S/S 3/4"X50MM','EA','Raw Material'],['31161740-0308','HEX BOLT & NUT S/S 5/8"X65MM','EA','Raw Material'],['31161740-0313','HEX BOLT & NUT S/S M14X65MM','EA','Raw Material'],['31161740-0314','HEX BOLT & NUT S/S M20X50MM','EA','Raw Material'],['31161740-0328','HEX BOLT & NUT BLACK GR 8.8 M12X65MM','EA','Raw Material'],['31161740-0330','HEX BOLT & NUT BLACK GR 8.8 M14X50MM','EA','Raw Material'],['31161740-0334','HEX BOLT & NUT BLACK GR 8.8 M16X50MM','EA','Raw Material'],['31161740-0343','BOLT & NUT ( STEEL ) 5/8" X 3"','EA','Raw Material'],['31161740-0344','BOLT & NUT (GALV) M20 X 90MM','EA','Raw Material'],['31161740-0345','BOLT & NUT (STEEL) 30MMX200MM','EA','Raw Material'],['31161740-0349','BOLT & NUT+ RING M27 X 140MM (GR10.9)','SET','Raw Material'],['31161740-0351','BOLT LONG DRAT 3/4 X 1MTR BLACK','EA','Raw Material'],['31161740-0352','BOLT NUT 27 X 120MM','EA','Raw Material'],['31161740-0353','BOLT NUT 30 X 125MM','EA','Raw Material'],['31161740-0355','BOLT NUT BLACK 5/8 X 2\'\'','EA','Raw Material'],['31161740-0357','BOLT TYRE FORKLIFT S6S','EA','Raw Material'],['31161740-0358','BOLT WHEEL J1833-07100','EA','Raw Material'],['31161740-0363','HEX BOLT & NUT BLACK GR 10.9 3/4"X65MM','EA','Raw Material'],['31161740-0364','HEX BOLT & NUT BLACK GR 10.9 7/8"X65MM','EA','Raw Material'],['31161740-0366','HEX BOLT & NUT GALV GR 8.8 M12X75MM','EA','Raw Material'],['31161740-0368','HEX BOLT & NUT S/S 1/2"X50MM','EA','Raw Material'],['31161740-0369','HEX BOLT & NUT S/S 1/2"X65MM','EA','Raw Material'],['31161740-0370','NUT 00800','EA','Raw Material'],['31161740-0371','NUT 5/8" BLACK','EA','Raw Material'],['31161740-0372','NUT M10 X 1.25PITCH (S/S)','EA','Raw Material'],['31161740-0373','NUT STEEL DIA 1-1/2"','EA','Raw Material'],['31161740-0374','NUT STEEL DIA 7/8"','EA','Raw Material'],['31161740-0376','BOLT & NUT ( HT8.8 ) 7/8 X 3"','EA','Raw Material'],['31161740-0378','BOLT & NUT ( S/S ) M14 X 25','SET','Raw Material'],['31161740-0379','BOLT & NUT ( S/S ) M6 X 120MM','EA','Raw Material'],['31161740-0382','BOLT & NUT (STEEL GALVANIZED) M16 X 65MM','EA','Raw Material'],['31161740-0383','BOLT & NUT (STEEL GALVANIZED) M16 X 75MM','EA','Raw Material'],['31161740-0389','BOLT & NUT S/S 3/4 X 2 1/2" SS','EA','Raw Material'],['31161740-0391','BOLT & NUT S/S M16 X 2"','SET','Raw Material'],['31161740-0395','BOLT NUT HITAM ( HT8.8 ) 3/4 X 3"','EA','Raw Material'],['31161740-0396','BOLT NUT HITAM 3/4 X 1 1/2"','EA','Raw Material'],['31161740-0398','BRASS BUTTERFLY BOLT 5/8X 5" /W WING NUT','EA','Raw Material'],['31161740-0401','NUT BLACK 7/8"','EA','Raw Material'],['31161740-0402','NUT S/S 3/4"','EA','Raw Material'],['31161740-0403','NUT S/S 5/8"','EA','Raw Material'],['31161740-0404','NUT S/S 7/8"','EA','Raw Material'],['31161740-0420','BOLT NUT BLACK 1/2X2IN','EA','Raw Material'],['31161740-0421','HEX BOLT NUT BLACK HT8.8 M12X50 (P-1.75)','EA','Raw Material'],['31161740-0422','BOLT NUT BLACK 1/2X2-1/2IN','EA','Raw Material'],['31161807-0010','FLAT WASHER GALV M12','EA','Raw Material'],['31161807-0011','FLAT WASHER GALV M20','EA','Raw Material'],['31161807-0012','FLAT WASHER S/S M12','EA','Raw Material'],['31161807-0013','FLAT WASHER S/S M20','EA','Raw Material'],['31161807-0016','FLAT WASHER M16 GALV','EA','Raw Material'],['31161811-0003','SPRING WASHER S/S M12','EA','Raw Material'],['31161811-0004','SPRING WASHER S/S M20','EA','Raw Material'],['31161811-0010','SPRING WASHER S/S M16','EA','Raw Material'],['31161811-0011','FLAT WASHER S/S M16','EA','Raw Material'],['31162002-0001','CLEAM NAILS','EA','Raw Material'],['31162002-0002','RIVET NAILS','EA','Raw Material'],['31162201-0004','RIVET P/N : 406763','EA','Raw Material'],['31162203-0001','STANG RIVET','EA','Raw Material'],['31162305-0001','GRATING CLIPS GALV','EA','Raw Material'],['31162405-0015','HARD NEEDLE 6MM','EA','Raw Material'],['31162405-0017','TURNBUCKLE 1/2 X L30','EA','Raw Material'],['31162416-0001','BLASTING COUPLING HOSE MALE END','EA','Raw Material'],['31162416-0003','COUPLING HOSE END 1"','EA','Raw Material'],['31162416-0004','COUPLING HOSE MALE 1"','EA','Raw Material'],['31162506-0003','BRACKET AC','SET','Raw Material'],['31162804-0001','DOOR TOGGLE','EA','Raw Material'],['31162813-0003','WIRE CLIPS GALV 22MM','EA','Raw Material'],['31162813-0004','WIRE CLIPS GALV 32MM','EA','Raw Material'],['31162813-0005','WIRE CLIPS GALV 38MM','EA','Raw Material'],['31162813-0017','WIRE CLIPS GALV 19MM','EA','Raw Material'],['31162813-0018','WIRE CLIPS GALV 3MM','EA','Raw Material'],['31162813-0019','WIRE CLIPS M26','EA','Raw Material'],['31162818-0001','ALUMINIUM ANODES BW 13,2KG','EA','Raw Material'],['31162818-0002','ALUMINIUM ANODES BW 3,2KG','EA','Raw Material'],['31162818-0003','ALUMINIUM ANODES BW 5,2KG','EA','Raw Material'],['31162818-0005','ALUMINIUM ANODES BW 9KG','EA','Raw Material'],['31162818-0008','ZINC ANODE TYPE WZ ( GW 8,5 KG )','EA','Raw Material'],['31162819-0002','LEVER BLOCK 3T','UN','Raw Material'],['31162906-0017','CLAMP HOSE 4 INCH','EA','Raw Material'],['31162906-0034','CLAMP HOSE S/S 3"','EA','Raw Material'],['31162906-0050','CLAMP HOSE S/S 1"','EA','Raw Material'],['31162906-0052','CLAMP HOSE S/S 1/2"','EA','Raw Material'],['31163006-0002','SCREW COUPLING BLASTING','EA','Raw Material'],['31163011-0001','COUPLING HOSE END 1"','EA','Raw Material'],['31163101-0011','SOCK PUMO','EA','Raw Material'],['31163201-0011','SLEEP PER 4 MM','EA','Raw Material'],['31163224-0001','SMALL GRENDEL','EA','Raw Material'],['31171505-0180','BEARING ROLL MO9D0004','EA','Raw Material'],['31171540-0001','NEADLE BEARING','EA','Raw Material'],['31171541-0001','BEARING NTN','EA','Raw Material'],['31171541-0002','BEARING SPHERICAL','EA','Raw Material'],['31171610-0001','HEAD POLE BATTERY ACCU','EA','Raw Material'],['31171802-0001','PLATE FRONT IDELER 6P 6653','EA','Raw Material'],['31181701-0003','PACKING FIREFLY/TBA 2MM','SHT','Raw Material'],['31181701-0004','PACKING FIREFLY/TBA 3,2MM','SHT','Raw Material'],['31181701-0006','RUBBER PACKING 2MM - L : 1MTR','M','Raw Material'],['31181701-0007','RUBBER PACKING 3MM - L : 1MTR','M','Raw Material'],['31181701-0009','RUBBER PACKING 5MM - L : 1MTR','M','Raw Material'],['31181701-0010','PACKING FIREFLY/TBA 1/2MM','SHT','Raw Material'],['31181701-0012','PACKING KLINGRIT WIRE 3MM','SHT','Raw Material'],['31181701-0014','PACKING TOMBO 1000 3MM','SHT','Raw Material'],['31181701-0016','PACKING TOMBO 1000 5MM','SHT','Raw Material'],['31181701-0026','PACKING EY 20 ALKON','EA','Raw Material'],['31181701-0027','PACKING SET OVERHAULD FORKLIFT DP 40','SET','Raw Material'],['31181701-0028','PACKING SET ZH 115','SET','Raw Material'],['31181702-0010','REMES/GLAND PACKING 6,5MM','M','Raw Material'],['31181702-0003','REMES/GLAND PACKING 10MM','M','Raw Material'],['31181702-0004','REMES/GLAND PACKING 16MM','M','Raw Material'],['31181702-0008','REMES/GLAND PACKING 25MM','M','Raw Material'],['31181702-0009','REMES/GLAND PACKING 32MM','M','Raw Material'],['31181702-0025','REMIS PACKING 19 MM','M','Raw Material'],['31181702-0026','REMIS PACKING 38 MM','M','Raw Material'],['31191501-0060','SANDPAPER CC-240','EA','Raw Material'],['31191501-0061','SANDPAPER P600','EA','Raw Material'],['31191505-0001','ROUND SANDPAPER 25X30MM','EA','Raw Material'],['31191510-0003','GRINDING WHEEL 4"','EA','Raw Material'],['31201525-0060','TAPE ISOLATION SCOTCH 23 BLACK','ROL','Raw Material'],['31201530-0002','ALUMINIUM ALLOY RIVET 6X22MM','EA','Raw Material'],['31201533-0001','AC TAPES ISOLATION','EA','Raw Material'],['31201607-0002','PLASTIC STEEL EPOXY','EA','Raw Material'],['31201610-0030','GLUE REMA SVS-VULC 5059142 70ML','EA','Raw Material'],['31201610-0031','GLUE (FOX) 600GR','EA','Raw Material'],['31201632-0011','THREEBOND 1104 ECO (100GR)','EA','Raw Material'],['31211502-0002','CAT INTERGARD 263 LIGHT GREY 1PL:20 LTR','L','Raw Material'],['31211503-0001','GUARD IM 9029','EA','Raw Material'],['31211503-0005','JOTAMASTIC 80 AL BLACK','L','Raw Material'],['31211503-0007','SEACONOMY 700 ( RED BROWN )','L','Raw Material'],['31211503-0010','HEMPADUR MASTIC WHITE 45881 + CA 95881','L','Raw Material'],['31211507-0021','PILOX YELLOW','EA','Raw Material'],['31211507-0030','PILOX WHITE','EA','Raw Material'],['31211508-0070','PASTE, GASOLINE GAUGING, NET. 2.25 OZ','TUB','Raw Material'],['31211803-0021','THINER JOTUN NO 7 1 PAIL = 5 LTR','L','Raw Material'],['31211904-0020','FLAT PAINT BRUSH 2"','EA','Raw Material'],['31211906-0005','MINI PAINT ROLLER+HANDLE 100MM','EA','Raw Material'],['31211906-0010','MINI PAINT ROLLER REFILL 100MM','BOX','Raw Material'],['31241601-0001','PARTICULATE FILTER 7093','BOX','Raw Material'],['31241607-0007','ROUND BAR ST41 M/S 1"X6000MM','EA','Raw Material'],['31241607-0008','ROUND BAR ST41 M/S 2-1/2"X6000MM','EA','Raw Material'],['31241607-0010','ROUND BAR ST41 M/S 2"X6000MM','EA','Raw Material'],['31241607-0011','ROUND BAR ST60 M/S 3"X6000MM','EA','Raw Material'],['31241607-0012','ROUND BAR ST70 M/S 4"X6000MM','EA','Raw Material'],['31241607-0014','ROUND BAR ST41 M/S 5/8"X6000MM','EA','Raw Material'],['31241607-0015','ROUND BAR ST41 M/S 7/8"X6000MM','EA','Raw Material'],['31241607-0016','ROUND BAR ST41 M/S 3/4"X6000MM','EA','Raw Material'],['31241607-0034','ROUNBAR (BRONZE) 1-1/2" X 1MTR','EA','Raw Material'],['31241607-0035','ROUNBAR (S/S) 1" X 2MTR','EA','Raw Material'],['31241607-0036','ROUND BAR (BRONZE) DIA 50 X 1000MM','EA','Raw Material'],['31241608-0001','SQUARE BAR M/S 22X22X6000MM','EA','Raw Material'],['31241704-0001','KACA PUTIH 39,5 CM X 22 CM','EA','Raw Material'],['31241704-0002','WINDOW GLASS (KACA BIASA) DIA 364X5MM','EA','Raw Material'],['31241814-0001','FILTER SUCTION P/N YL00003141','EA','Raw Material'],['31311211-0001','PIPE FUEL ZH 115','SET','Raw Material'],['31351212-0001','COPPER TUBE (BRONZE PIPE) 8MM 15/16`','ROL','Raw Material'],['31401503-0074','O RING LBQ1210','EA','Raw Material'],['31401503-0075','O RING LBQ1410','EA','Raw Material'],['31411605-0001','OIL SEAL AXLE STERING','EA','Raw Material'],['31411605-0002','OIL SEAL SET','EA','Raw Material'],['31411702-0005','MECHANICAL SEAL','EA','Raw Material'],['31411704-0005','V RING 1-1/2"X3/4"','EA','Raw Material'],['31411704-0006','V RING 2X1-1/2"','EA','Raw Material'],['31411901-0018','ORING SMALL','EA','Raw Material'],['32101517-0001','COUPLER PH 40 COUPLER PH 40','EA','Raw Material'],['32101517-0002','COUPLING (AS SAMPLE) - OLD STOCK','EA','Raw Material'],['32101632-0002','TIMER ON DELAY REXL2TNP7','EA','Raw Material'],['32121501-0023','CAPACITOR PHILIPS 25 MF / MICRON','EA','Raw Material'],['32131006-0001','STOP KONTAK 4 LOBANG OUTBROW ( BROCO )','EA','Raw Material'],['32131006-0002','STOP KONTAK ANTENA TV','EA','Raw Material'],['32141107-0015','SOCKET WELD M/S 1"X1"','EA','Raw Material'],['32141107-0016','TEE SOCKET WELD 3/4"X3000','EA','Raw Material'],['32A19-00400','BOLT','EA','Raw Material'],['32A20-02900','NUT CRANKSHAFT HYUNDAI','EA','Raw Material'],['32A46-10010','CASE ASSY MITSUBISHI','EA','Raw Material'],['32B01-12100','GASKET CYL HEAD MITSUBISHI','EA','Raw Material'],['340-4002_NRR25DB','EARS PLUG CORDED WITH CASE','PAI','Raw Material'],['34407-02090','OIL SEAL BACK MITSUBISHI','EA','Raw Material'],['34407-11090','SEAL OIL ASSY MITSUBISHI','EA','Raw Material'],['37101-33900-71','UNIVERSAL SPIDER SET','EA','Raw Material'],['39101601-0061','NAV LAMP P28S 24V/40W','EA','Raw Material'],['39101625-0001','BARGE LAMP/WARNING LIGHT /W BATTERY 6V','SET','Raw Material'],['39101625-0002','LAMP GANGWAY -','EA','Raw Material'],['39101625-0003','LAMP NAVIGATION TYPE CXH6-21P','SET','Raw Material'],['39101625-0004','NAC LAMP/MASTHEAD LIGHT TYPE CXH3-21P','EA','Raw Material'],['39101625-0005','ROTARY LAMP 24 VOLT','EA','Raw Material'],['39101628-0067','LAMP, TUBE LIGHT, 36W/54 TLD, PHILIPS','EA','Raw Material'],['39101804-0002','SI PLUS IGNITOR PHILIPS 250 - 1000 W','EA','Raw Material'],['39101804-0010','IGNITOR SI 5I 220VAC/400W PHILIPS','EA','Raw Material'],['39111608-0002','LED STREET LIGHT_6500K WHITE_50WATT','EA','Raw Material'],['39111802-0003','FLOURESCENT PUNDANT LIGHT 2 X 38W','UN','Raw Material'],['39111802-0004','LAMP HOUSING','EA','Raw Material'],['39111810-0002','LAMP STARTER S10-P 4-65W','EA','Raw Material'],['39111817-0001','MARINE SEARCH LIGHT TG27-B 220V 50/60HZ','EA','Raw Material'],['39111817-0002','LAMP TL MARINE 2 X 20 W WT TYPE JCY26-2','SET','Raw Material'],['39111819-0001','LAMP FITTING 300/1000WATT','EA','Raw Material'],['39111819-0002','LAMP FITTING DOWN LIGHT 4\'\'','EA','Raw Material'],['39121031-0002','SAKLAR MARINE SAKLAR TEMPEL','SET','Raw Material'],['39121031-0004','SAKLAR EMERGENCY STOP','EA','Raw Material'],['39121032-0031','CURRENT TRANSFORMER 100/5A','EA','Raw Material'],['39121032-0032','CURRENT TRANSFORMER 800/5A','EA','Raw Material'],['39121308-0002','BOSS 12800','EA','Raw Material'],['39121308-0003','SOCKET OUTLET 13A','EA','Raw Material'],['39121308-0005','SOCKET OUTLET MARINE + PLUG','EA','Raw Material'],['39121316-0001','CEILING LIGHT WALL LIGHT AC 60W','EA','Raw Material'],['39121402-0041','STEKER 2P 16A','EA','Raw Material'],['39121405-0061','CABLE LUG/SKUN ALU 120MM','EA','Raw Material'],['39121405-0063','CABLE LUG/SKUN ALU 70MM','EA','Raw Material'],['39121405-0077','CABLE LUG / SKUN COPPER SC 95-12','EA','Raw Material'],['39121405-0084','CABLE LUG 16MM X HOLE 6','EA','Raw Material'],['39121405-0087','CONNECTOR / SKUN SHOCK 70 MM','EA','Raw Material'],['39121405-0088','CONNECTOR / SKUN SHOCK 95 MM','EA','Raw Material'],['39121406-0027','ELECTRICAL SOCKET_2 OUTBOW_IP55','EA','Raw Material'],['39121410-0023','SEPARATOR TRA 2','EA','Raw Material'],['39121410-0024','SEPARATOR TRA 3','EA','Raw Material'],['39121410-0025','TERMINAL BLOCK TB1512 15A 600V','EA','Raw Material'],['39121410-0026','TERMINAL BLOCK BLACK','EA','Raw Material'],['39121432-0016','THERMAL BUBBLE ROLL 4X1.2MMX25MTR','ROL','Raw Material'],['39121432-0017','TERMINAL PVC WHITE 60A (25MM) 400V','EA','Raw Material'],['39121460-0001','HBAD 6754-71-7200','EA','Raw Material'],['39121611-0005','CERAMIC FUSE_10 X 38MM_gG TYPE_500V_10A','EA','Raw Material'],['39121702-0007','FITTING, HOLDER LAMP, PANASONIC NLP52201','EA','Raw Material'],['39121703-0040','CABLE TIES 100X3,0','PAC','Raw Material'],['39121703-0041','CABLE TIES 150X3,6','PAC','Raw Material'],['39121703-0042','CABLE TIES 250X3,6','PAC','Raw Material'],['39121703-0043','CABLE TIES 300X4,8','PAC','Raw Material'],['39121705-0018','CLAMP, DOUBLE BOLT, CLAW MINSUP, 3/4"','EA','Raw Material'],['39121710-0001','RECEPTACLE NWT 16A FLUSH TYPE','EA','Raw Material'],['39121723-0040','HEAT SHRINKABLE TUBE_20-84MM INNER DIA','EA','Raw Material'],['39122204-0002','TUMBLER,TAKE UP 9024878','EA','Raw Material'],['39122211-0001','SAKLAR TYPE DOUBLE','EA','Raw Material'],['39122224-0001','WHT 20 / SWITCH WITH 20 A 440 B 3 PHASE','EA','Raw Material'],['39122307-0008','AUXILURY RELAY 220V/50HZ','EA','Raw Material'],['39131604-0007','SPIRAL HOSE PROTECTOR_1/2INCH_50M_RUBBER','ROL','Raw Material'],['39131604-0008','SPIRAL HOSE PROTECTOR_1INCH_50M_RUBBER','ROL','Raw Material'],['39131704-0004','CABLE TRAY 20MM X 10 X 240','EA','Raw Material'],['40101720-0001','FUEL COOLER 206-03-71161','EA','Raw Material'],['40141604-0004','SAFETY V/V MFW.A 1/2" 12MM SET.P 10KG/CM','EA','Raw Material'],['40141607-0020','VALVE BALL 2 INCH','EA','Raw Material'],['40141607-0037','BALL VALVE BSP FEMALE BRNZ 2-1/2"','EA','Raw Material'],['40141607-0040','BALL VALVE BSP FEMALE S/S 1"','EA','Raw Material'],['40141607-0041','BALL VALVE BSP FEMALE S/S 1-1/4"','EA','Raw Material'],['40141607-0042','BALL VALVE BSP FEMALE S/S 3/4"','EA','Raw Material'],['40141607-0043','BALL VALVE HYDRAULIC NPT C/S PN500 1/2"','EA','Raw Material'],['40141607-0120','BALL VALVE PVC 2-1/2"','EA','Raw Material'],['40141607-0121','BALL VALVES S/S 1-1/2\'\'','EA','Raw Material'],['40141607-0123','BALL VALVE 3/4" X 5K ( BRONZE )','EA','Raw Material'],['40141610-0005','FLOATING VALVE BRASS 3/4"','EA','Raw Material'],['40141611-0020','GLOBE VALVE C/I PN16 DN100','EA','Raw Material'],['40141611-0027','QUICK CLOSING GLOBE V/V C/S JIS 10K 50','EA','Raw Material'],['40141611-0032','SWING CHECK VALVE F7373 C/I JIS 10K 65','EA','Raw Material'],['40141611-0035','GLOBE VALVE 5K 65 (NON RETURN VALVE)','EA','Raw Material'],['40141611-0039','GLOBE VALVE SDNR KUNINGAN 1" 16K','EA','Raw Material'],['40141611-0043','ANGLE GLOBE VALVE_DN32_C/I_PN16_SDNR','EA','Raw Material'],['40141613-0010','GATE VALVE F7364 C/I JIS 10K 80','EA','Raw Material'],['40141613-0012','GATE VALVE F7364 C/I JIS 10K 100','EA','Raw Material'],['40141613-0014','GATE VALVE F7364 C/I JIS 10K 50','EA','Raw Material'],['40141613-0018','GATE VALVE F7363 C/I JIS 5K 65','EA','Raw Material'],['40141613-0028','GATE VALVE F7366 C/S JIS 10K 100','EA','Raw Material'],['40141613-0030','GATE VALVE F7363 C/I JIS 5K 25','EA','Raw Material'],['40141613-0034','GATE VALVE BRNZ JIS 5K 20','EA','Raw Material'],['40141613-0035','GATE VALVE F7364 C/I JIS 10K 40','EA','Raw Material'],['40141613-0037','GATE VALVE BRNZ JIS 5K 40','EA','Raw Material'],['40141613-0038','GATE VALVE BRNZ JIS 5K 50','EA','Raw Material'],['40141613-0042','GATE VALVE C/I 2 1/2" X JIS 10K','EA','Raw Material'],['40141613-0056','GATE VALVE_DN40_100MM_JIS 10K_B2026','EA','Raw Material'],['40141615-0001','SELF CLOSE DRAIN V/V F7398 BRNZ U A15 5K','EA','Raw Material'],['40141615-0002','SELF CLOSING U DRAIN BRONZE 5K X 3/4"','EA','Raw Material'],['40141617-0011','ANGLE VALVE HYDRNT BRNZ JIS 10K 40','EA','Raw Material'],['40141636-0001','SPRING CHECK VALVE 2 1/2"','EA','Raw Material'],['40141638-0001','EMRGNCY SHUTOFF F7399 C/S BKI JIS A15 5K','EA','Raw Material'],['40141638-0002','EMRGNCY SHUTOFF F7399 C/S BKI JIS A25 5K','EA','Raw Material'],['40141651-0005','AIR VENT HEAD C/I JIS 10K 65','EA','Raw Material'],['40141651-0006','AIR VENT HEAD C/I JIS 10K 80','EA','Raw Material'],['40141651-0009','AIR VENT HEAD C/I JIS 5K 65','EA','Raw Material'],['40141656-0013','BUTTERFLY VALVE C/I JIS 10K 150','EA','Raw Material'],['40141719-0004','CAMLOCK COUPLING_SIZE 2IN_TYPE C FEMALE','EA','Raw Material'],['40141719-0005','CAMLOCK COUPLING_SIZE 2IN_TYPE E FEMALE','EA','Raw Material'],['40141734-0025','CAMLOCK COUPLING_SIZE 2IN_TYPE D FEMALE','EA','Raw Material'],['40141743-0002','NOZZLE HOLDER  1"','EA','Raw Material'],['40142002-0027','RUBBER AIR HOSE_3/4IN X 50M_2 THREAD','EA','Raw Material'],['40142003-0002','HOSE MINDER 3/4"','EA','Raw Material'],['40142003-0003','HOSE RADIATOR BELLOW FORKLIFT S6S','EA','Raw Material'],['40142003-0005','HOSE TRANSMISSION 1/2"','M','Raw Material'],['40142008-0048','HOSE "OEM" 02760-00209','EA','Raw Material'],['40142018-0001','RUBBER HOSE FOR BLASTING 2-1/2"','M','Raw Material'],['40142018-0002','RUBBER HOSE FOR BLASTING 4"','M','Raw Material'],['40142201-0010','REGULATOR LPG/ACETYLENE YR-76','EA','Raw Material'],['40142204-0010','REGULATOR OXYGEN YR-76','EA','Raw Material'],['40142204-0011','REGULATOR LPG 12KG','EA','Raw Material'],['40142503-0001','STEAM TRAP','EA','Raw Material'],['40151506-0007','SEMI ROTARY HAND PUMP 1/2"','EA','Raw Material'],['40151506-0008','HALF TWIST - ACTION HAND PUMP 1`','EA','Raw Material'],['40161502-0012','CARTRIDGE, SEDIMEN FILTER 1 MICRON - 10"','EA','Raw Material'],['40161502-0055','WATER PHASS 24"','EA','Raw Material'],['40161505-0015','ACT 140-T S/N 19TR02974','UN','Raw Material'],['40161513-0016','FUEL FILTER 1302D488','EA','Raw Material'],['40161513-0017','FUEL FILTER COMPRESSOR PDS 365','EA','Raw Material'],['40161806-0001','FILTER NET 1X3FEET','EA','Raw Material'],['40171602-0008','PIPE SML C/S SCH40 - 1-1/2" X 6MTR','EA','Raw Material'],['40171602-0014','PIPE SML C/S SCH40 - 2-1/2" X 6MTR','EA','Raw Material'],['40171602-0020','PIPE SML C/S SCH40 - 8" X 6MTR','EA','Raw Material'],['40171602-0021','PIPE SML C/S SCH80 - 1-1/2" X 6MTR','EA','Raw Material'],['40171602-0022','PIPE SML C/S SCH80 - 1-1/4" X 6MTR','EA','Raw Material'],['40171602-0023','PIPE SML C/S SCH80 - 1/2" X 6MTR','EA','Raw Material'],['40171602-0024','PIPE SML C/S SCH80 - 10" X 6MTR','EA','Raw Material'],['40171602-0025','PIPE SML C/S SCH80 - 12" X 6MTR','EA','Raw Material'],['40171602-0026','PIPE SML C/S SCH80 - 14" X 6MTR','EA','Raw Material'],['40171602-0027','PIPE SML C/S SCH80 - 1" X 6MTR','EA','Raw Material'],['40171602-0028','PIPE SML C/S SCH80 - 2-1/2" X 6MTR','EA','Raw Material'],['40171602-0029','PIPE SML C/S SCH80 - 2" X 6MTR','EA','Raw Material'],['40171602-0030','PIPE SML C/S SCH80 - 3/4" X 6MTR','EA','Raw Material'],['40171602-0031','PIPE SML C/S SCH80 - 3" X 6MTR','EA','Raw Material'],['40171602-0032','PIPE SML C/S SCH80 - 4" X 6MTR','EA','Raw Material'],['40171602-0033','PIPE SML C/S SCH80 - 5" X 6MTR','EA','Raw Material'],['40171602-0034','PIPE SML C/S SCH80 - 6" X 6MTR','EA','Raw Material'],['40171602-0035','PIPE SML C/S SCH80 - 8" X 6MTR','EA','Raw Material'],['40171602-0038','SEAMLESS  PIPE C/S SCH80 SIZE 16" X 6MTR','EA','Raw Material'],['40171602-0039','SEAMLESS  PIPE C/S SCH80 SIZE 24" X 6MTR','EA','Raw Material'],['40171612-0028','PIPE GALV SCH40 - 1-1/4" X 6MTR','EA','Raw Material'],['40171612-0029','PIPE GALV SCH80 - 1-1/2" X 6MTR','EA','Raw Material'],['40171612-0030','PIPE GALV SCH80 - 1-1/4" X 6MTR','EA','Raw Material'],['40171612-0031','PIPE GALV SCH80 - 1" X 6MTR','EA','Raw Material'],['40171612-0032','PIPE GALV SCH80 - 2-1/2" X 6MTR','EA','Raw Material'],['40171612-0033','PIPE GALV SCH80 - 2" X 6MTR','EA','Raw Material'],['40171612-0034','PIPE GALV SCH80 - 3/4" X 6MTR','EA','Raw Material'],['40171612-0035','PIPE GALV SCH80 - 3" X 6MTR','EA','Raw Material'],['40171612-0036','PIPE GALV SCH80 - 5" X 6MTR','EA','Raw Material'],['40171612-0037','PIPE GALV SCH80 - 8" X 6MTR','EA','Raw Material'],['40171612-0047','PIPE GALV SCH80 - 4" X 6MTR','EA','Raw Material'],['40171612-0050','PIPE GALV SCH80 - 6IN X 6MTR','EA','Raw Material'],['40172201-0010','FLANGE SORF ANSI150 - 6"','EA','Raw Material'],['40172201-0012','PIPE FLANGE_1-1/2IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0014','PIPE FLANGE_1/2IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0015','PIPE FLANGE_1IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0016','PIPE FLANGE_2-1/2IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0017','PIPE FLANGE_2IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0018','PIPE FLANGE_3/4IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0020','PIPE FLANGE_4IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0021','PIPE FLANGE_6IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0022','PIPE FLANGE_8IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0023','PIPE FLANGE_1-1/2IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0025','PIPE FLANGE_1IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0026','PIPE FLANGE_2-1/2IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0027','PIPE FLANGE_2IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0028','PIPE FLANGE_3/4IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0031','PIPE FLANGE_8IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0037','FLANGE SOFF JIS 10K - 5"','EA','Raw Material'],['40172201-0038','FLANGE GALV - 1/2"','EA','Raw Material'],['40172201-0039','FLANGE GALV JIS 10K - 1-1/4"','EA','Raw Material'],['40172201-0040','FLANGE GALV JIS 10K - 2 1/2"','EA','Raw Material'],['40172201-0042','FLANGE GALV PN16 - 3"','EA','Raw Material'],['40172201-0043','FLANGE HYD SQUARE 3/4"X210K','EA','Raw Material'],['40172201-0044','FLANGE HYD SQUARE JIS 10K - 1\'\'','EA','Raw Material'],['40172201-0045','PIPE FLANGE_10IN_SOFF JIS 10K','EA','Raw Material'],['40172201-0046','PIPE FLANGE_1-1/2IN_SOFF JIS 20K','EA','Raw Material'],['40172201-0047','PIPE FLANGE_1/2IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0050','PIPE FLANGE_5IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0051','PIPE FLANGE_6IN_SOFF JIS 5K','EA','Raw Material'],['40172201-0052','FLANGE SORF ANSI 10\'\'','EA','Raw Material'],['40172201-0053','FLANGE B2220 M/S SS 400 JIS F.F A75 10K','EA','Raw Material'],['40172201-0056','FLANGE GALV 3" 5K','EA','Raw Material'],['40172201-0058','FLANGE B2220 M/S SS 400 F.F JIS A32 5K','EA','Raw Material'],['40172201-0062','FLANGE MS 1 1/4" 5K','EA','Raw Material'],['40172201-0063','FLANGE MS 3" 5K','EA','Raw Material'],['40172201-0064','FLANGE MS 4" 5K','EA','Raw Material'],['40172414-0001','DOP SGP GALV 2 1/2"','EA','Raw Material'],['40172414-0002','DOP SGP GALV 4"','EA','Raw Material'],['40172414-0003','DOP SGP GALV 2" NPT (IN THREAD)','EA','Raw Material'],['40172414-0004','DOP SGP GALV 2" NPT (OUT THREAD)','EA','Raw Material'],['40172414-0005','DOP SGP GALV 1-1/2"','EA','Raw Material'],['40172414-0006','DOP SGP GALV 3"','EA','Raw Material'],['40172611-0010','HDPE STRAIGHT PIPE COUPLING_25MM','EA','Raw Material'],['40172611-0011','HDPE STRAIGHT PIPE COUPLING_32MM','EA','Raw Material'],['40172611-0012','HDPE STRAIGHT PIPE COUPLING_50MM','EA','Raw Material'],['40172611-0013','HDPE STRAIGHT PIPE COUPLING_63MM','EA','Raw Material'],['40172802-0134','ELBOW BW LR 90 C/S SCH40 - 1/2"','EA','Raw Material'],['40172802-0150','ELBOW BW LR 90 C/S SCH40 - 4"','EA','Raw Material'],['40172802-0151','ELBOW BW LR 90 C/S SCH80 - 1-1/2"','EA','Raw Material'],['40172802-0152','ELBOW BW LR 90 C/S SCH80 - 1-1/4"','EA','Raw Material'],['40172802-0153','ELBOW BW LR 90 C/S SCH80 - 1/2"','EA','Raw Material'],['40172802-0154','ELBOW BW LR 90 C/S SCH80 - 10"','EA','Raw Material'],['40172802-0155','ELBOW BW LR 90 C/S SCH80 - 1"','EA','Raw Material'],['40172802-0156','PIPE ELBOW_2.5IN_BW_SCH80_C/S_LR 90','EA','Raw Material'],['40172802-0157','PIPE ELBOW_2IN_BW_SCH80_C/S_LR 90','EA','Raw Material'],['40172802-0158','ELBOW BW LR 90 C/S SCH80 - 3/4"','EA','Raw Material'],['40172802-0159','PIPE ELBOW_3IN_BW_SCH80_C/S_LR 90','EA','Raw Material'],['40172802-0160','ELBOW BW LR 90 C/S SCH80 - 4"','EA','Raw Material'],['40172802-0161','ELBOW BW LR 90 C/S SCH80 - 5"','EA','Raw Material'],['40172802-0162','ELBOW BW LR 90 C/S SCH80 - 6"','EA','Raw Material'],['40172802-0163','ELBOW BW LR 90 C/S SCH80 - 8"','EA','Raw Material'],['40172802-0170','ELBOW BW LR 90 GALV SCH40 - 1/2"','EA','Raw Material'],['40172802-0172','ELBOW BW SR 45 C/S SCH40 - 5"','EA','Raw Material'],['40172802-0173','ELBOW BW SR 45 C/S SCH40 - 6"','EA','Raw Material'],['40172802-0174','ELBOW BW SR 45 C/S SCH40 - 8"','EA','Raw Material'],['40172802-0175','ELBOW GALV 1-1/2 SCH 40','EA','Raw Material'],['40172802-0176','ELBOW S/S 304 90 DEGREES 1"','EA','Raw Material'],['40172802-0177','ELBOW SGP ( UNGALVANIZED ) Ø 2 1/2` SCH','EA','Raw Material'],['40172802-0180','ELBOW MS 6" SCH 40','EA','Raw Material'],['40172815-0012','ELBOW BW LR 90 GALV SCH80 - 4"','EA','Raw Material'],['40172815-0026','ELBOW BW LR 90 GALV SCH80 - 1-1/2"','EA','Raw Material'],['40172815-0028','ELBOW BW LR 90 GALV SCH80 - 2-1/2"','EA','Raw Material'],['40172815-0029','ELBOW BW LR 90 GALV SCH80 - 2"','EA','Raw Material'],['40172815-0031','ELBOW BW LR 90 GALV SCH80 - 5"','EA','Raw Material'],['40173408-0001','PVC PLASTIC PIPE PLATE FLANGE_2IN_4 HOLE','EA','Raw Material'],['40173502-0002','PLUG M/S 1"','EA','Raw Material'],['40174602-0062','TEE, GALVD, FEMALE THREADED, SIZE: 1/2"','EA','Raw Material'],['40183102-0005','TEE SGP BW GALV SCH80 - 4"','EA','Raw Material'],['40183102-0007','TEE SGP BW C/S SCH80 - 1"','EA','Raw Material'],['40183102-0013','TEE SGP BW C/S SCH40 - 1/2"','EA','Raw Material'],['40183102-0014','TEE SGP BW C/S SCH80 - 1/2"','EA','Raw Material'],['40183102-0015','TEE SGP BW C/S SCH80 - 6"','EA','Raw Material'],['40183102-0016','TEE SGP BW GALV SCH40 - 2-1/2\'\'','EA','Raw Material'],['40183102-0018','T - WB 1 1/2" GALVANIS','EA','Raw Material'],['40183102-0020','T - WB 1" GALVANIS T - WB 1" GALVANIS','EA','Raw Material'],['40183102-0022','T - WB 1/2" GALVANIS','EA','Raw Material'],['40183102-0025','T - WB 2.5" GALVANIS','EA','Raw Material'],['40183102-0026','T - WB 3" SCH 40','EA','Raw Material'],['40183102-0027','TEE 2 1/2" SCH 80','EA','Raw Material'],['40183105-0001','NEPPLE 3/4"','EA','Raw Material'],['40183105-0002','NEPPLE GREASE M10X1.5','EA','Raw Material'],['40183105-0003','NEPPLE COUPLING S/S 1/2"','EA','Raw Material'],['40183105-0005','NEPPLE GREASE STRAIGHT 5/8"','EA','Raw Material'],['40183105-0006','BLASTING HOSE CLAW COUPLING FML 1-1/4"','EA','Raw Material'],['40183105-0007','M.S SOCKET 1/2"','EA','Raw Material'],['40183105-0008','M.S SOCKET 3/4"','EA','Raw Material'],['40183105-0009','Y NEPPLE BRASS 1-1/4\'\'','EA','Raw Material'],['40183105-0011','NEPPLE 1/2"','EA','Raw Material'],['40183107-0001','CLAW COUPLING GALV FEMALE 3/4"','EA','Raw Material'],['40183112-0009','REDUCER M/S SCH80 - 2X4"','EA','Raw Material'],['40183112-0010','REDUCER M/S SCH80 - 3X2"','EA','Raw Material'],['40183112-0011','REDUCER M/S SCH80 - 4X3"','EA','Raw Material'],['40183112-0012','REDUCER M/S SCH80 - 4X6"','EA','Raw Material'],['40183112-0013','REDUCER M/S SCH80 - 5X3"','EA','Raw Material'],['40183112-0014','REDUCER M/S SCH80 - 6X3"','EA','Raw Material'],['40183112-0044','REDUCER 3/4 X 2-1/2 SGP','EA','Raw Material'],['40183112-0045','REDUCER ANSI B16.9 GALV CON 32X25A SCH40','EA','Raw Material'],['40183112-0046','REDUCER CPL SOCK BW+NPT 3000 A105 BW 1"','EA','Raw Material'],['40183112-0047','REDUCER CPL SOCK BW+NPT BW 1"X1/2" NPT30','EA','Raw Material'],['40183112-0048','REDUCER GALV SCH40 - 1"X2-1/2"','EA','Raw Material'],['40183112-0050','REDUCER SGP 5X4','EA','Raw Material'],['40183112-0051','CON REDUCER M/S 2" X 1" SCH80','EA','Raw Material'],['40183112-0056','REDUCER MS SCH 80 2 1/2" X 1 1/2"','EA','Raw Material'],['40183112-0057','REDUCING BUSH ( GALV`D ) 2` X 1 1/2`','EA','Raw Material'],['40183112-0058','REDUCER M/S SCH 80 2-1/2X1-1/2IN','EA','Raw Material'],['4024299','RELAY BATTERY 24V HITACHI','EA','Raw Material'],['4027429','O RING HITACHI','EA','Raw Material'],['4037462','SEAL OIL HITACHI','EA','Raw Material'],['4052860','OIL SEAL HITACHI','EA','Raw Material'],['4058965','COOLANT FILTER CUMMINS','EA','Raw Material'],['4059482','SEAL GROUP HITACHI','EA','Raw Material'],['4062811','O RING HITACHI','EA','Raw Material'],['4062814','O RING HITACHI','EA','Raw Material'],['4062823','RING SEAL HITACHI','EA','Raw Material'],['4062824','RING SEAL HITACHI','EA','Raw Material'],['4106879','RING WEAR HITACHI','EA','Raw Material'],['41103313-0001','RUDDER INDICATOR ING','SET','Raw Material'],['41104213-0005','WATER DISTILLED/DEMINERALIZED WATER','L','Raw Material'],['41104818-0001','RUBBER HATCH PACKING RECTANGULAR 50X30MM','M','Raw Material'],['41111802-0008','MEGA CHECK CLEANER BLUE','EA','Raw Material'],['41111802-0009','MEGA CHECK DEVELOPER','EA','Raw Material'],['41111917-0005','MULTI TESTER SANWA MODEL : XY360TRF','EA','Raw Material'],['4112336','PACKING O RING HITACHI','EA','Raw Material'],['421-06-23330','LIGHTBULB 70W 24V','EA','Raw Material'],['42221617-0001','ELEMEN PEMANAS KEPALA AIR BAG -','EA','Raw Material'],['42262105-0001','CHOCKFAST ORANGE PR 610 TCF','EA','Raw Material'],['42272007-0001','TUBE BENDER 3 IN 1','EA','Raw Material'],['43221703-0011','ANTENNA CABLE TV RG. 6 - 75 OHM','M','Raw Material'],['4336570','LAMP;HEAD','EA','Raw Material'],['4353560','STRAINER','EA','Raw Material'],['4436537','SENSOR','EA','Raw Material'],['45751-12340','PAINT HEMPADUR MULTI STRENGTH GREY','L','Raw Material'],['45751-50630','PAINT HEMPADUR MULTI STRENGTH RED','L','Raw Material'],['45881-11480','PAINT HEMPADUR DARK GREY','L','Raw Material'],['45881-19990','PAINT HEMPADUR MASTIC BLACK','L','Raw Material'],['45881-40640','PAINT HEMPADUR MASTIC GREEN','L','Raw Material'],['45881-50630','PAINT HEMPADUR MASTIC RED','L','Raw Material'],['45889+95881','PAINT HEMPADUR MASTIC BLACK /W CURING AG','L','Raw Material'],['4612331','V-BELT','EA','Raw Material'],['46171501-0020','WIRE, WHITE ( KAWAT PUTIH ) 2MM','ROL','Raw Material'],['46171501-0039','PADLOCK 60MM','EA','Raw Material'],['46181504-0030','COTTON HAND GLOVES','PAI','Raw Material'],['46181504-0031','HAND GLOVES COMBINATION GS-1913','PAI','Raw Material'],['46181536-0001','RUBBER GLOVES','PAI','Raw Material'],['46181604-0050','RUBBER BOOTS SIZE 40 RED AP BOOTS','PAI','Raw Material'],['46181604-0051','RUBBER BOOTS SIZE 42 RED AP BOOTS','PAI','Raw Material'],['46181706-0005','BLASTING HELMET FIBRE /W BLASTING JACKET','SET','Raw Material'],['46181707-0001','GLASS FOR WELDING BLACK','EA','Raw Material'],['46181707-0002','GLASS FOR WELDING CLEAR','EA','Raw Material'],['46181802-0017','SAFETY GLASSES GREY 599','EA','Raw Material'],['46181902-0010','EAR MUFFS 39106','EA','Raw Material'],['46191604-0010','FIRE BLANKET HT800 1MMX1X50M','EA','Raw Material'],['46191611-0010','FIRE HOSE BOX CAPACITY 20MTR','EA','Raw Material'],['47131604-0007','NYLON BROOM','EA','Raw Material'],['47131612-0001','WATERTIGHT RUBBER DOOR PACKING 30X20MM','M','Raw Material'],['47131612-0003','WATERTIGHT RUBBER DOOR PACKING 40X20MM','M','Raw Material'],['47131825-0020','CONTACT CLEANER 360ML','EA','Raw Material'],['47131909-0001','OIL ABSORBENT PAD','EA','Raw Material'],['4810230','O RING HITACHI','EA','Raw Material'],['49183-25150','PAINT HEMPADUR TIE COAT KHAKIBROWN','L','Raw Material'],['4M-9334','AIR FILTER CAT','EA','Raw Material'],['4V310-10','PNEUMATIC SELENOID VALVE AIRTAC','EA','Raw Material'],['500-FG','FUEL FILTER RACOR','EA','Raw Material'],['51106','THRUST BALL BEARING SINGLE SKF','EA','Raw Material'],['51206','THRUST BALL BEARING SINGLE SKF','EA','Raw Material'],['51570-19000','PAINT HEMPELS SILVIUM ALUMINIUM','L','Raw Material'],['52140-10000','PAINT HEMPALIN WHITE','L','Raw Material'],['52140-11480','PAINT HEMPALIN GREY','L','Raw Material'],['52140-20300','PAINT HEMPALIN YELLOW','L','Raw Material'],['52140-40640','PAINT HEMPALIN GREEN','L','Raw Material'],['52140-42170','HEMPALIN ENAMEL, GREEN YELLOW PAINT','L','Raw Material'],['52140-60050','PAINT HEMPALIN BROWN','L','Raw Material'],['539511','WEBSLING 5T X 6M 150MM FLAT','EA','Raw Material'],['55210-10000','PAINT HEMPATHANE TOP COAT WHITE','L','Raw Material'],['55210-19990','PAINT HEMPATHANE TOP COAT BLACK','L','Raw Material'],['55210-20300','PAINT HEMPATHANE TOP COAT YELLOW','L','Raw Material'],['55210-30700','PAINT HEMPATHANE TOP COAT BLUE','L','Raw Material'],['55210-30840','PAINT HEMPATHANE TOP COAT BLUE','L','Raw Material'],['55210-40640','PAINT HEMPATHANE TOP COAT GREEN','L','Raw Material'],['55210-42170','HEMPATHANE TOPCOAT, GREEN YELLOW PAINT','L','Raw Material'],['55210-50800','PAINT HEMPATHANE TOP COAT RED','L','Raw Material'],['5L-8855','3.14MM THICK METAL SEAL RING','EA','Raw Material'],['5M-2997','83.31MM OUTER DIAMETER FAN DRIVE SEAL','EA','Raw Material'],['5P-1262','CM-HOSE STK','EA','Raw Material'],['600-185-4110','AIR CLEANER','EA','Raw Material'],['600-311-3640','BOWL','EA','Raw Material'],['600-311-3722','FUEL SENSOR','EA','Raw Material'],['600-319-3610','FUEL FILTER','EA','Raw Material'],['600-319-3750','FUEL FILTER','EA','Raw Material'],['600-625-7620','FAN ASSEMBLY, CENTRIFUGAL','EA','Raw Material'],['600-815-8941','SWITCH','EA','Raw Material'],['600-861-3420','ALTERNATOR 35 A','EA','Raw Material'],['600-863-4210','STARTING MOTOR','EA','Raw Material'],['600-863-511','STARTING MOTOR DENSO','EA','Raw Material'],['60131405-0010','DRUMS EX / USED','EA','Raw Material'],['612600081335','FUEL FILTER WEICHAI','EA','Raw Material'],['6203-2Z','BEARING SKF','EA','Raw Material'],['6210-11-5232','CLAMP','EA','Raw Material'],['6210-2Z/C3','BEARING','EA','Raw Material'],['6213','BEARING SKF','EA','Raw Material'],['63/22','BEARING SKF','EA','Raw Material'],['6650120','RACE','EA','Raw Material'],['6667352','ELEMENT, INGERSOLL RAND  P/N. 6667352','EA','Raw Material'],['6678233','ENGINE OIL FILTER','EA','Raw Material'],['6692337','HYDRAULIC OIL FILTER CARTRIDGE','EA','Raw Material'],['6732-21-5491','GUIDE','EA','Raw Material'],['6736-51-5142','ENGINE OIL FILTER','EA','Raw Material'],['6754-11-8180','PACKING','EA','Raw Material'],['6754-41-4100','VALVE KOMATSU','EA','Raw Material'],['6754-41-4200','VALVE KOMATSU','EA','Raw Material'],['6754-79-6140','FUEL FILTER','EA','Raw Material'],['6754-81-8090','TURBOCHARGE','EA','Raw Material'],['7002734','HYDRAULIC OIL TANK FILTER','EA','Raw Material'],['7008043','OUTER AIR FILTER','EA','Raw Material'],['7008044','INNER AIR FILTER','EA','Raw Material'],['7012314','HYDRAULIC OIL FILTER','EA','Raw Material'],['703-08-94510','RING, BASE','EA','Raw Material'],['703-08-96140','SEAL OIL','EA','Raw Material'],['706-7G-11291','SEALOIL','EA','Raw Material'],['707-98-46280-R','SERVICE KIT BOOM CYLINDER RH KOMATSU','EA','Raw Material'],['707-98-48610','SERVICE KIT','EA','Raw Material'],['708-2L-06480','BLOCK ASSY RR','EA','Raw Material'],['708-2L-23131','SEAT','EA','Raw Material'],['708-2L-32150','BEARING','EA','Raw Material'],['708-2L-33160','SPRING','EA','Raw Material'],['708-2L-33350','SHOE RETAINER','EA','Raw Material'],['708-2L-33430','PISTON SUB ASSY','EA','Raw Material'],['708-7L-12140','BEARING','EA','Raw Material'],['708-8F-12151','BEARING KOMATSU','EA','Raw Material'],['708-8F-32121','SHAFT','EA','Raw Material'],['7142000','ALTERNATOR BELT','EA','Raw Material'],['7188792','DRIVE PUMP BELT','EA','Raw Material'],['7195W-51110','PAINT A/F OLYMPIC PROTECT RED','L','Raw Material'],['723-11-18150','O-RING','EA','Raw Material'],['723-11-19130','O-RING','EA','Raw Material'],['723-46-17510','ORING','EA','Raw Material'],['723-46-17520','RING BACK-UP','EA','Raw Material'],['723-46-17530','ORING','EA','Raw Material'],['723-46-41950','O-RING','EA','Raw Material'],['7414582','HYDRAULIC OIL FILTER AND O-RINGS','EA','Raw Material'],['7496373','HYDRAULIC OIL CANISTER CAP','EA','Raw Material'],['7G-6576','CAGE A','EA','Raw Material'],['7M-4710','COGGED V-BELT (SET OF 2)','EA','Raw Material'],['80266689','SAFETY VALVE TANK','EA','Raw Material'],['85671-11150','PAINT HEMPADUR LIGHT GREY','L','Raw Material'],['85GR-REDCYLICONE','SILICONE RED','EA','Raw Material'],['860112394','CAP RADIATOR XMCG','EA','Raw Material'],['88A13001F1','FUEL FILTER','EA','Raw Material'],['897222-1720','TURBO CHARGE HITACHI','EA','Raw Material'],['8FD70N_ 4715-02','BRAKE ASSY, LH','EA','Raw Material'],['8FD70N_1603-01','RADIATOR ASSY','EA','Raw Material'],['8FD70N_1603-17','SHAFT ASSY, FAN DRIVE','EA','Raw Material'],['8FD70N_1603-41A','BELT, V','EA','Raw Material'],['8FD70N_1603-46','HOSE, RADIATOR, INLET','EA','Raw Material'],['8FD70N_1603-54','RUBBER, MOUNTING (FOR RADIATOR)','EA','Raw Material'],['8FD70N_1603-68','BELT, FAN DRIVE','EA','Raw Material'],['8FD70N_1603-80','HOSE, RADIATOR, OUTLET, NO. 1','EA','Raw Material'],['8FD70N_1603-DP','CLIP','EA','Raw Material'],['8FD70N_1603-DQ','BEARING','EA','Raw Material'],['8FD70N_1603-ED','FITTING','EA','Raw Material'],['8FD70N_1603-GQ','SEAL OR RING, O 9FOR VALVE STEM OIL','EA','Raw Material'],['8FD70N_1603-XG','SPACER','EA','Raw Material'],['8FD70N_1603-XI','BEARING','EA','Raw Material'],['8FD70N_2201-01','HOLDER & NOZZLE SET','EA','Raw Material'],['8FD70N_2601-10','WIRE ASSY, ACCELERATOR FLEXIBLE','EA','Raw Material'],['8FD70N_3201-20B','SEAL, OIL (FOR TORQUECONVERTER CASE)','EA','Raw Material'],['8FD70N_3201-21','CASE SUB-ASSY, TOQUECONVERTER, NO. 2','EA','Raw Material'],['8FD70N_3201-21A','PACKING, TRANSMISSION CASE','EA','Raw Material'],['8FD70N_3204-45C','RING, O (FOR OUTPUT SHAFT)','EA','Raw Material'],['8FD70N_3204-66A','SEAL, OIL (FOR COUPLING)','EA','Raw Material'],['8FD70N_3204-66B','BEARING, COUPLING','EA','Raw Material'],['8FD70N_3204-AQ','PLATE, LOCK','EA','Raw Material'],['8FD70N_3204-AR','BOLT','EA','Raw Material'],['8FD70N_3204-FU','DEFLETOR','EA','Raw Material'],['8FD70N_4101-59A','SEAL, OIL (FOR CARRIER COVER)','EA','Raw Material'],['8FD70N_4101-60','GEAR, REDUCTION','EA','Raw Material'],['8FD70N_4101-60A','BEARING, NO. 1, REDUCTION GEAR','EA','Raw Material'],['8FD70N_4201-40C','SEAL, OIL (FOR FRONT AXLE SHAFT)','EA','Raw Material'],['8FD70N_4201-41C','BEARING, NO.2 , FRONT AXLE HUB','EA','Raw Material'],['8FD70N_4201-41D','NUT, BEARING LOCK','EA','Raw Material'],['8FD70N_4201-41E','BOLT, HUB','EA','Raw Material'],['8FD70N_4201-46','SHAFT, PLANET GEAR','EA','Raw Material'],['8FD70N_4201-47','GEAR, PLANET','EA','Raw Material'],['8FD70N_4201-47A','BUSHING, PLANET GEAR','EA','Raw Material'],['8FD70N_4201-48B','RING, O (FOR PLANET GEAR CARRIER)','EA','Raw Material'],['8FD70N_4201-49','PLATE, LOCK NUT','EA','Raw Material'],['8FD70N_4201-53B','SEAL, OIL (FOR FRONT AXLE SHAFT)','EA','Raw Material'],['8FD70N_4201-AN','WASHER, THRUST','EA','Raw Material'],['8FD70N_4201-BP','SCREW','EA','Raw Material'],['8FD70N_4201-FD','NUT','EA','Raw Material'],['8FD70N_4301-20A','BUSHING, REAR AXLE BEAM','EA','Raw Material'],['8FD70N_4301-40','KNUCKLE, STEERING, RH','EA','Raw Material'],['8FD70N_4301-41','KNUCKLE, STEERING, LH','EA','Raw Material'],['8FD70N_4301-42','PIN, STEERING KNUCKLE KING','EA','Raw Material'],['8FD70N_4301-42B','SEAL, OIL, NO. 1','EA','Raw Material'],['8FD70N_4301-42C','BEARING, NEEDLE','EA','Raw Material'],['8FD70N_4301-44A','BEARING, INNER','EA','Raw Material'],['8FD70N_4301-44B','BEARING, OUTER','EA','Raw Material'],['8FD70N_4301-44C','BOLT, HUB','EA','Raw Material'],['8FD70N_4301-44D','NUT, HUB','EA','Raw Material'],['8FD70N_4301-44F','SEAL, OIL (FOR REAR AXLE HUB)','EA','Raw Material'],['8FD70N_4301-45','CAP, REAR AXLE HUB','EA','Raw Material'],['8FD70N_4301-47','TIE-ROD','EA','Raw Material'],['8FD70N_4301-AA','BOLT','EA','Raw Material'],['8FD70N_4301-AB','FITTING, GREASE','EA','Raw Material'],['8FD70N_4301-AC','FITTING, GREASE','EA','Raw Material'],['8FD70N_4301-AF','PLATE, STOPPER','EA','Raw Material'],['8FD70N_4301-BX','BOLT','EA','Raw Material'],['8FD70N_4301-CP','COLLAR','EA','Raw Material'],['8FD70N_4301-DG','PIN','EA','Raw Material'],['8FD70N_4301-DV','NUT','EA','Raw Material'],['8FD70N_4301-DY','NUT','EA','Raw Material'],['8FD70N_4301-JI','RING, O','EA','Raw Material'],['8FD70N_4402-20','WHEEL SUB-ASSY, DISC','EA','Raw Material'],['8FD70N_4402-AF','FLAP','EA','Raw Material'],['8FD70N_4403-20','WHEEL SUB-ASSY, DISC','EA','Raw Material'],['8FD70N_4714-20','PIPE SUB-ASSY, BRAKE, MAIN, NO. 1','EA','Raw Material'],['8FD70N_4714-22','PIPE SUB-ASSY, BRAKE, RH NO. 1','EA','Raw Material'],['8FD70N_4714-23','PIPE SUB-ASSY, BRAKE, LH NO. 1','EA','Raw Material'],['8FD70N_4715-23','PLATE SUB-ASSY,BACKING, LH','EA','Raw Material'],['8FD70N_5611-01B','BULB,HEAD LAMP','EA','Raw Material'],['8FD70N_5611-04A','BULB, REAR COMBINATION LAMP','EA','Raw Material'],['8FD70N_5611-04D','BULB, REAR COMBINATION LAMP','EA','Raw Material'],['8FD70N_5611-04J','BULB, REAR COMBINATION LAMP','EA','Raw Material'],['8FD70N_5611-57','LAMP ASSY, FLASHING BEACON','EA','Raw Material'],['8FD70N_6101-20B','BUSHING, MAST SUPPORT','EA','Raw Material'],['8FD70N_6101-41','ROLLER, LIFT(FOR INNER MAST)','EA','Raw Material'],['8FD70N_6101-42','ROLLER, LIFT(FOR MIDDLE MAST)','EA','Raw Material'],['8FD70N_6101-50','ROLLER, SIDE(FOR INNER MAST)','EA','Raw Material'],['8FD70N_6301-21K','PIN KIT,FORK STOPPER','EA','Raw Material'],['8FD70N_6301-40','ROLLER, LIFT(UPPER,LOWER)','EA','Raw Material'],['8FD70N_6301-41','ROLLER, LIFT (CENTER)','EA','Raw Material'],['8FD70N_6301-42','ROLLER, SIDE','EA','Raw Material'],['8FD70N_6302-40','WHEEL, CHAIN','EA','Raw Material'],['8FD70N_6302-40A','RING, SHAFT SNAP (FOR CHAIN WHEEL)','EA','Raw Material'],['8FD70N_6611-12A','BULB, FRONT COMBINATION','EA','Raw Material'],['8FD70N_6611-17A','BULB, COMBINATION HEAD LIGHT','EA','Raw Material'],['8FD70N_6611-17B','BULB, COMBINATION HEADLIGHT','EA','Raw Material'],['8FD70N_6611-17C','BULB, COMBINATION HEAD LIGHT','EA','Raw Material'],['8FD70N_6802-48','FITTING, FRONT LIFT CYLINDER','EA','Raw Material'],['8FD70N_6802-76','VALVE ASSY,SAFETY DOWN','EA','Raw Material'],['8FD70N_6802-AC','RING','EA','Raw Material'],['8FD70N_6802-BC','HOSE, HIGH PRESSURE','EA','Raw Material'],['8FD70N_6802-PG','RING, O','EA','Raw Material'],['8FD70N_§101-40','ROLLER, LIFT (FOR OUTER MAST)','EA','Raw Material'],['8PK1725','RIBBED BELT MITSUBOSHI','EA','Raw Material'],['9-14215-166-1','HYDRAULIC FILTER ISUZU','EA','Raw Material'],['9-14215-167-0','INNER AIR FILTER ISUZU','EA','Raw Material'],['90105-10013-71','UNIVERSAL JOINT BOLT','EA','Raw Material'],['91801-07400','PULLEY KOMATSU','EA','Raw Material'],['934668B','SOLID MARKER - BLUE','EA','Raw Material'],['94410-00600','MAIN ROLLER AR-D = 117 MITSUBISHI','EA','Raw Material'],['9G-5343','256.67MM ASSEMBLED OUTSIDE DIA SEAL','EA','Raw Material'],['9S-9972','AIR FILTER CAT','EA','Raw Material'],['9W-9058','BOLT','EA','Raw Material'],['A-1305','AIR FILTER  SAKURA','EA','Raw Material'],['A-6111','AIR FILTER  SAKURA','EA','Raw Material'],['A04425274','OIL FILTER CARTRIDGE','EA','Raw Material'],['A212.10230','ADMISEAL 212','L','Raw Material'],['A314.00900','ADMIMASTIC 331 BLACK','L','Raw Material'],['A314.50729','ADMIMASTIC 331 RED 50729','L','Raw Material'],['A314.AAG','ADMIMASTIC 331 GREY','L','Raw Material'],['A317.20362','ADMIGUARD 317 BEIGE','L','Raw Material'],['A317.50728','ADMIGUARD 317 RED','L','Raw Material'],['A318.30463','ADMIGUARD 318','L','Raw Material'],['A810045','O RING HITACHI','EA','Raw Material'],['A810090','O-RING','EA','Raw Material'],['A882.00900','COALTAR GUARD 882','L','Raw Material'],['A942.10000','ADMITHANE 942 WHITE 10000','L','Raw Material'],['A942.80300','ADMITHANE 942 YELLOW GREEN RAL 6018','L','Raw Material'],['A942.80466','ADMITHANE 942 GREEN 40640','L','Raw Material'],['A942.99864','ADMITHANE 942 BLACK 19990','L','Raw Material'],['AVR-556','VOLTAGE REGULATOR 24V','EA','Raw Material'],['B7577','LUBE FILTER BALDWIN','EA','Raw Material'],['BMA664','PAINT INTERSWIFT 6600 RED','L','Raw Material'],['BQA624','PAINT INTERSPEED 6200 RED','L','Raw Material'],['BQA628','PAINT INTERSPEED 6200 BROWN','L','Raw Material'],['BR-262','BATTERY RELAY 24V','EA','Raw Material'],['C-1006','OIL FILTER','EA','Raw Material'],['C-1301','LUBE FILTER  SAKURA','EA','Raw Material'],['C-1304','FUEL FILTER  SAKURA','EA','Raw Material'],['C-1305','LUBE FILTER  SAKURA','EA','Raw Material'],['C-1306','LUBE FILTER  SAKURA','EA','Raw Material'],['C-1310','LUBE FILTER  SAKURA','EA','Raw Material'],['C-1701','LUBE FILTER  SAKURA','EA','Raw Material'],['C-1706','LUBE FILTER  SAKURA','EA','Raw Material'],['CEA0093','BEARING HITACHI','EA','Raw Material'],['CLB000/5L/RI','PAINT INTERLAC 665 WHITE','L','Raw Material'],['CLL549/5L/RI','PAINT INTERLAC 665 S GREEN','L','Raw Material'],['CPA099/5L/RI','PAINT INTERPRIME 198 RED','L','Raw Material'],['DR110','GREASE PUMP YAMADA','EA','Raw Material'],['EONSPILL257','EON SPILL 257','PL','Raw Material'],['EZ1599','SAFETY LATCH','EA','Raw Material'],['F-1801','FUEL FILTER  SAKURA','EA','Raw Material'],['F2300-20000','NUT MITSUBISHI','EA','Raw Material'],['F8140-30214','TAPER ROLLER BEARING MITSUBISHI','EA','Raw Material'],['FAJ034/A20L/RI','PAINT INTERGARD 263 LIGHT GREY','L','Raw Material'],['FC-1007','FUEL FILTER  SAKURA','EA','Raw Material'],['FC-1503','FUEL FILTER  SAKURA','EA','Raw Material'],['FC-1801','FUEL FILTER  SAKURA','EA','Raw Material'],['FGH-1','FUEL GUN HUSKY','EA','Raw Material'],['GTA004/5L/RI','PAINT THINNER CLEAR','L','Raw Material'],['GTA007/5L/RI','PAINT THINNER CLEAR','L','Raw Material'],['HHB-630M','ELECTRIC HYDRAULIC PUMP_35L_2.2KW_380V','EA','Raw Material'],['HHYG-100150','SINGLE ACT HYD CYLINDER_100TON X 150MM','EA','Raw Material'],['I0-91110-522-0','WHEEL NUT PIN_FRONT AXLE','EA','Raw Material'],['I2-97014-252-1','FAN BELT COOLING_NKR66','EA','Raw Material'],['I2-97247-514-0','OIL FILTER_NKR66/66-2','EA','Raw Material'],['I5-87832-221-0','REPAIR KIT_CLUTCH M/CYLINDER NQR 71B','EA','Raw Material'],['I7-42502-223-A','CABLE BATTERY TO STARTER_NKR71','EA','Raw Material'],['I7-76020-215-A','PROPELLER SHAFT_NLR71-T','EA','Raw Material'],['I7-89002-217-B','DISC WHEELNKR71-T/THD','EA','Raw Material'],['I8-94133-759-9','PLUG GLOW_D-MAX','EA','Raw Material'],['I8-94248-117-1','SEAL OIL HUB FRONT_NKR66','EA','Raw Material'],['I8-94360-792-A','KING PIN ONLY_NKR71','EA','Raw Material'],['I8-94399-398-0','STRAINER GASKET_NKR66','EA','Raw Material'],['I8-97033-888-0','EXHAUST BRAKE AIR FILTER_NKR66','EA','Raw Material'],['I8-97085-071-A','BRAKE DRUM FRONT NKR55E2','EA','Raw Material'],['I8-97107-349-2','TIE ROD L','EA','Raw Material'],['I8-97124-740-0','HOSE WATER BOTTO','EA','Raw Material'],['I8-97162-163-A','HOSE RADIATOR IN_NKR71E2','EA','Raw Material'],['I8-97171-451-2','FUEL FILTER_NKR66','EA','Raw Material'],['I8-97172-548-0','CAP FUEL FILTER_NKR71E2','EA','Raw Material'],['I8-97209-950-A','HOSE WATER TURBO_NKR71E2','EA','Raw Material'],['I8-97217-911-3','HOSE_AIR_TURBO_NHR55E2','EA','Raw Material'],['I8-97224-318-1','HOSE OIL COOLER_NHR55E2','EA','Raw Material'],['I8-97359-805-0','WHEEL NUT_INNER_REAR AXLE','EA','Raw Material'],['I8-97359-806-0','LH WHEEL NUT_INNER MOUNT','EA','Raw Material'],['I8-97359-809-0','NUT WHEEL PIN REAR AXLE FILTER_E2','EA','Raw Material'],['I8-97359-810-0','LH NUT WHEEL PIN REAR AXLE_FTR','EA','Raw Material'],['I8-97377-899-A','CLUTCH DISC NKR55E2','EA','Raw Material'],['I8-97695-623-A','SPRING LEAF FRONT_NMR71_SD','EA','Raw Material'],['I8-97695-631-A','SPRING LEAF REAR_NMR71_ST','EA','Raw Material'],['I8-98098-250-0','CYLINDER_CLUTCH MASTER_NQ','EA','Raw Material'],['I8-98127-460-3','CYLINDER_BRAKE MASTER NLR5','EA','Raw Material'],['I8-98171-254-A','BEARING INNER FRONT HUB_NQR71','EA','Raw Material'],['I8-98213-867-0','STRAINER_OIL_OIL PUMP FTR90','EA','Raw Material'],['I8-98251-954-0','TIE ROD R','EA','Raw Material'],['I8-98319-912-A','FUEL FILTER_NKR71','EA','Raw Material'],['I8-98321-413-A','AIR CLEANER FILTER','EA','Raw Material'],['I8-98327-903-0','NUT_BEARING_REAR HUB NLR55','EA','Raw Material'],['I9-00093-081-A','BEARING INNER REAR HUB_NKR58','EA','Raw Material'],['I9-00093-082-A','BEARING OUTER REAR HUB_NKR55','EA','Raw Material'],['I9-00093-172-A','HUB OUTER BEARING_FRONT AXLE','EA','Raw Material'],['INTERSPEED6200','PAINT A/F BQA628-BROWN','L','Raw Material'],['J75481','FITTING','EA','Raw Material'],['J75581','FITTING GREASE','EA','Raw Material'],['J8610111','LUBE FILTER DONALDSON','EA','Raw Material'],['J8610495','LUBE FILTER DONALDSON','EA','Raw Material'],['J8610940','LUBE FILTER','EA','Raw Material'],['J8613000','LUBE FILTER','EA','Raw Material'],['J8620121','FUEL FILTER DONALDSON','EA','Raw Material'],['J8621311','FUEL FILTER DONALDSON','EA','Raw Material'],['J8621614','FUEL FILTER','EA','Raw Material'],['J8630180-1','HYDRAULIC FILTER DONALDSON','EA','Raw Material'],['J8633052','HYDRAULIC FILTER','EA','Raw Material'],['JBA016/5L/RI','PAINT INTERTUF 16 BLACK','L','Raw Material'],['KDK724/A20L/RI','PAINT INTERBOND 201 STROM GREY','L','Raw Material'],['KDL549/A20L/RI','PAINT INTERBOND 201 S GREEN','L','Raw Material'],['KDY999/A20L/RI','PAINT INTERBOND 201 BLACK','L','Raw Material'],['MC810632','NUT WHEEL MITSUBISHI','EA','Raw Material'],['MVAA-220-4A2','PILOT VALVE MINDMAN','EA','Raw Material'],['N310ECP','CYLINDER ROLLER BEARING','EA','Raw Material'],['NU2307ECP','CYLINDRICAL ROLLER BEARING','EA','Raw Material'],['O-1809','LUBE FILTER  SAKURA','EA','Raw Material'],['P173238','HYDRAULIC FILTER DONALDSON','EA','Raw Material'],['P181099','AIR FILTER DONALDSON','EA','Raw Material'],['P502244','HYDRAULIC FILTER STRAINER DONALDSON','EA','Raw Material'],['P502270','HYDRAULIC FILTER DONALDSON','EA','Raw Material'],['P502382','HYDRAULIC FILTER','EA','Raw Material'],['P502527','HYDRAULIC FILTER DONALDSON','EA','Raw Material'],['P527484','AIR FILTER DONALDSON','EA','Raw Material'],['P550335','LUBE FILTER DONALDSON','EA','Raw Material'],['P550385','FUEL FILTER DONALDSON','EA','Raw Material'],['P550588','WATER SEPARATOR FUEL FILTER','EA','Raw Material'],['P550777','LUBE FILTER DONALDSON','EA','Raw Material'],['P551210','HYDRAULIC FILTER DONALDSON','EA','Raw Material'],['P551314','FUEL FILTER DONALDSON','EA','Raw Material'],['P551329','FUEL FILTER DONALDSON','EA','Raw Material'],['P551342','HYDRAULIC FILTER DONALDSON','EA','Raw Material'],['P551670','LUBE FILTER DONALDSON','EA','Raw Material'],['P551864','FUEL FILTER DONALDSON','EA','Raw Material'],['P552010PM','FUEL FILTER DONALDSON','EA','Raw Material'],['P552040PM','FUEL FILTER DONALDSON','EA','Raw Material'],['P553000','LUBE FILTER','EA','Raw Material'],['P554005','LUBE FILTER DONALDSON','EA','Raw Material'],['P554105','LUBE FILTER DONALDSON','EA','Raw Material'],['P555823','FUEL FILTER DONALDSON','EA','Raw Material'],['P558615','LUBE FILTER','EA','Raw Material'],['P828889','AIR FILTER DONALDSON','EA','Raw Material'],['PHY999/A','PAINT INTERTHANE 990 BLACK','L','Raw Material'],['QX104190','AIR FILTER','EA','Raw Material'],['QX150410','SEPARATOR KIT D','SET','Raw Material'],['QX150411','MINOR KIT C','SET','Raw Material'],['QX150412','MAJOR KIT E','SET','Raw Material'],['RS3505','AIR FILTER','EA','Raw Material'],['S/F459051','TRACK ROLLER KOMATSU','EA','Raw Material'],['S1136714990','FAN BELT','EA','Raw Material'],['SCWO4000-20','SCREW COMPRESSOR OIL 4000 HOUR','PL','Raw Material'],['SCX550E-2040779','ROD : PISTON','EA','Raw Material'],['SCX550E-3053246','FLANGE : SPL','EA','Raw Material'],['SCX550E-3075543','NUT : SPL','EA','Raw Material'],['SCX550E-3077237','AXLE','EA','Raw Material'],['SCX550E-3078695','ROD','EA','Raw Material'],['SCX550E-3078698','HOLDER','EA','Raw Material'],['SCX550E-3104056','AXLE','EA','Raw Material'],['SCX550E-4137866','U-RING','EA','Raw Material'],['SCX550E-4140481','O-RING','EA','Raw Material'],['SCX550E-4142235','BUSHING','EA','Raw Material'],['SCX550E-4153731','SEAL : GROUP','EA','Raw Material'],['SCX550E-4182363','RING','EA','Raw Material'],['SCX550E-4264035','SEAL : DUST','EA','Raw Material'],['SCX550E-4272503','BOLT : SPL','EA','Raw Material'],['SCX550E-4282633','SEAL : GROUP','EA','Raw Material'],['SCX550E-4350249','FILTER','EA','Raw Material'],['SCX550E-4353620','LINING','EA','Raw Material'],['SCX550E-4353621','LINING','EA','Raw Material'],['SCX550E-4630998','PIN','EA','Raw Material'],['SCX550E-9245617','TAKE-UP ROLLER','EA','Raw Material'],['SCX550E-9246878','TRACK : ROLLER','EA','Raw Material'],['SCX550E-A590906','WASHER : SPRING','EA','Raw Material'],['SCX550E-A810070','O-RING','EA','Raw Material'],['SCX550E-A810080','O-RING','EA','Raw Material'],['SCX550E-J782000','BOLT : HEX SOC HD','EA','Raw Material'],['SCX550E-M341025','BOLT : HEX SOC HD','EA','Raw Material'],['SCX550E-M480630','SCREW : FLUSH HD','EA','Raw Material'],['SCX550E-M500605','NUT : HIGH STRENGTH','EA','Raw Material'],['SCX550E-YA00030338','VALVE','EA','Raw Material'],['SCX550E-YL40002598','ROPE : PENDANT','EA','Raw Material'],['SCX550E-YL40003181','ROPE : PENDANT','EA','Raw Material'],['SCX550E-Z942491','BRG : BALL','EA','Raw Material'],['SCX550E-Z950386','BRG : BALL','EA','Raw Material'],['SCX550E-Z971541','BRG : BALL','EA','Raw Material'],['SCX550E-Z991349','RETAINER','EA','Raw Material'],['SFH3321','DRAIN FILTER SURE FILTER','EA','Raw Material'],['SFO1431','FUEL FILTER SURE FILTER','EA','Raw Material'],['SPOTCHECKCLEANER','SPOTCHECK','CAN','Raw Material'],['SPOTCHECKDEVELOPER','SPOTCHECK','CAN','Raw Material'],['SPOTCHECKPENETRANT','SPOTCHECK, PENETRANT','CAN','Raw Material'],['YA00033065','HYDRAULIC FILTER','EA','Raw Material'],['Z435692','SPRING HITACHI','EA','Raw Material'],['_01643-31645','WASHER KOMATSU','EA','Raw Material'],['_07959-20001','VALVE KOMATSU','EA','Raw Material'],['_30020202','VAN BELT CUMMIS','EA','Raw Material'],['_30214JR','BEARING','EA','Raw Material'],['_3040303','VAN BELT CUMMIS','EA','Raw Material'],['_4061709','LINING HITACHI','EA','Raw Material'],['_4067160','LINING, CLUTCH HITACHI','EA','Raw Material'],['_4067161','LINING, CLUTCH HITACHI','EA','Raw Material'],['_4067762','LINING HITACHI','EA','Raw Material'],['_6307','BEARING SKF','EA','Raw Material'],['_A-6006','AIR FILTER  SAKURA','EA','Raw Material'],['_AF928M','AIR FILTER FLEETGUARD','EA','Raw Material'],['_FC-1805','AIR FILTER  SAKURA','EA','Raw Material'],['_FF5319','FUEL FILTER FLEETGUARD','EA','Raw Material'],['_LC1D25M7','CONTACTOR 440V/25A','EA','Raw Material'],['_P532966','AIR FILTER DONALDSON','EA','Raw Material'],['_P551110','FUEL FILTER DONALDSON','EA','Raw Material'],['_P553004','FUEL FILTER DONALDSON','EA','Raw Material'],['_P553771','LUBE FILTER DONALDSON','EA','Raw Material'],['_P554004','LUBE FILTER DONALDSON','EA','Raw Material']];
+
+/* ── THEME ── */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('theme-btn').textContent=t==='dark'?'☀️':'🌙';
+  document.getElementById('tc').content=t==='dark'?'#0f1117':'#f8fafb';
+  localStorage.setItem('shm-theme',t);
+}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem('shm-theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));})();
+
+/* ── UTILS ── */
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},3000);}
+function v(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function today(){return new Date().toISOString().split('T')[0];}
+function fmtDate(d){return new Date(d).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});}
+
+/* ── INIT ── */
+document.getElementById('tgl').value=today();
+renderIL();
+
+/* ── KAPAL ── */
+var kapals=JSON.parse(localStorage.getItem('shm-kapal')||'[]');
+var selKapal='';
+var dlgAction=null;
+
+function saveKapals(){localStorage.setItem('shm-kapal',JSON.stringify(kapals));}
+
+function renderKddList(){
+  var el=document.getElementById('kdd-list');
+  if(!kapals.length){el.innerHTML='<div class="kdd-empty">Belum ada kapal. Tambahkan dulu.</div>';return;}
+  el.innerHTML=kapals.map(function(k){
+    return '<div class="kdd-item'+(k===selKapal?' on':'')+'" onclick="selKapalFn(\''+k+'\')">'+
+      '<span>'+k+'</span>'+(k===selKapal?'<span class="kdd-chk">✓</span>':'')+
+    '</div>';
+  }).join('');
+}
+
+function toggleKdd(){
+  var d=document.getElementById('kdd');
+  if(!d.classList.contains('open'))renderKddList();
+  d.classList.toggle('open');
+}
+function selKapalFn(k){
+  selKapal=k;
+  document.getElementById('kapal-name').textContent=k;
+  renderKddList();
+  setTimeout(function(){document.getElementById('kdd').classList.remove('open');},150);
+}
+function showAddKapal(){
+  document.getElementById('kdd-addform').classList.add('open');
+  setTimeout(function(){document.getElementById('new-kapal').focus();},80);
+}
+function hideAddKapal(){
+  document.getElementById('kdd-addform').classList.remove('open');
+  document.getElementById('new-kapal').value='';
+}
+function addKapal(){
+  var nm=document.getElementById('new-kapal').value.trim();
+  if(!nm){toast('⚠️ Nama kapal tidak boleh kosong');return;}
+  if(kapals.indexOf(nm)>-1){toast('⚠️ Kapal sudah ada');return;}
+  kapals.push(nm);saveKapals();selKapalFn(nm);hideAddKapal();
+  toast('✅ Kapal "'+nm+'" ditambahkan');
+}
+function confirmDelKapal(){
+  if(!selKapal){toast('⚠️ Pilih kapal yang ingin dihapus');return;}
+  showDlg('Hapus Kapal?','Kapal "'+selKapal+'" akan dihapus dari daftar.','Hapus',function(){
+    kapals=kapals.filter(function(k){return k!==selKapal;});
+    saveKapals();selKapal='';
+    document.getElementById('kapal-name').textContent='— Pilih Kapal / Project —';
+    renderKddList();toast('🗑️ Kapal dihapus');closeDlg();
+  });
+}
+
+/* tutup dropdown klik luar */
+document.addEventListener('click',function(e){
+  var kc=document.querySelector('.kapal-card');
+  var kdd=document.getElementById('kdd');
+  if(kdd.classList.contains('open')&&kc&&!kc.contains(e.target))kdd.classList.remove('open');
+  var mw=document.querySelector('.msw');
+  var mr=document.getElementById('mres');
+  if(mr.classList.contains('open')&&mw&&!mw.contains(e.target))mr.classList.remove('open');
+});
+
+/* ── MATERIAL SEARCH ── */
+var selMat=null;
+var SAT_SEL='KG';
+var VAL_SEL='NEW';
+var DBG_TAB='full';
+
+function onSearch(){
+  var q=document.getElementById('mat-q').value.trim().toLowerCase();
+  var mr=document.getElementById('mres');
+  if(!q){mr.classList.remove('open');mr.innerHTML='';return;}
+  /* search dalam MM array */
+  var pool=MM.filter(function(m){
+    return m[1].toLowerCase().indexOf(q)>-1||m[0].toLowerCase().indexOf(q)>-1;
+  }).slice(0,200);
+  if(!pool.length){
+    mr.innerHTML='<div class="mres-empty">Material tidak ditemukan</div>';
+  } else {
+    mr.innerHTML=pool.map(function(m){
+      var katCls=m[3]==='Consumable'?'mk-c':'mk-r';
+      return '<div class="mri" onclick="pickMat(\''+m[0]+'\',\''+m[1].replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\',\''+m[2]+'\',\''+m[3]+'\')">'+
+        '<div><div class="mri-name">'+m[1]+'</div><div class="mri-kode">'+m[0]+'</div></div>'+
+        '<span class="mri-kat '+katCls+'">'+m[3]+'</span>'+
+      '</div>';
+    }).join('');
+  }
+  mr.classList.add('open');
+}
+
+function pickMat(kode,nama,sat,kat){
+  selMat={kode:kode,nama:nama,satuan:sat,kategori:kat};
+  document.getElementById('mat-kode').value=kode;
+  document.getElementById('msel-kode').textContent=kode;
+  document.getElementById('msel-name').textContent=nama;
+  document.getElementById('msel').classList.add('show');
+  document.getElementById('mat-q').value=nama;
+  document.getElementById('mres').classList.remove('open');
+  /* ukuran hanya untuk Raw Material */
+  document.getElementById('ukuran-wrap').classList.toggle('show',kat==='Raw Material');
+  /* auto-set satuan sesuai master */
+  setActiveSat(sat);
+  setTimeout(function(){document.getElementById('mat-qty').focus();},80);
+}
+
+function clearMat(){
+  selMat=null;
+  document.getElementById('mat-kode').value='';
+  document.getElementById('msel').classList.remove('show');
+  document.getElementById('msel-kode').textContent='—';
+  document.getElementById('msel-name').textContent='—';
+  document.getElementById('mat-q').value='';
+  document.getElementById('ukuran-wrap').classList.remove('show');
+}
+
+/* ── SATUAN TOGGLE ── */
+function setSat(btn){
+  SAT_SEL=btn.dataset.v;
+  document.querySelectorAll('#sat-toggle .tbtn').forEach(function(b){b.classList.toggle('on',b.dataset.v===SAT_SEL);});
+}
+function setActiveSat(s){
+  var found=false;
+  document.querySelectorAll('#sat-toggle .tbtn').forEach(function(b){
+    var match=b.dataset.v===s;
+    b.classList.toggle('on',match);
+    if(match){SAT_SEL=s;found=true;}
+  });
+  if(!found){SAT_SEL=s;} /* satuan di luar KG/EA/SHT tetap disimpan */
+}
+
+/* ── VALUATION ── */
+function setVal(v){
+  VAL_SEL=v;
+  document.getElementById('val-new').classList.toggle('on',v==='NEW');
+  document.getElementById('val-oc').classList.toggle('on',v==='OFF-CUT');
+}
+
+/* ── ITEM LIST ── */
+var items=[];
+
+function addItem(){
+  if(!selMat){toast('⚠️ Pilih material terlebih dahulu');return;}
+  var qty=v('mat-qty');
+  if(!qty||parseFloat(qty)<=0){toast('⚠️ Isi jumlah material');return;}
+  items.push({
+    kode:selMat.kode,nama:selMat.nama,kategori:selMat.kategori,
+    qty:qty,satuan:SAT_SEL,valuation:VAL_SEL,
+    ukuran:selMat.kategori==='Raw Material'?v('mat-ukuran'):'',
+  });
+  renderIL();
+  clearMat();
+  document.getElementById('mat-qty').value='';
+  document.getElementById('mat-ukuran').value='';
+  setVal('NEW');
+  setActiveSat('KG');
+  document.getElementById('prev-section').style.display='none';
+  toast('✅ Material ditambahkan');
+}
+
+function removeItem(i){
+  showDlg('Hapus Item?','"'+items[i].nama+'" akan dihapus dari daftar.','Hapus',function(){
+    items.splice(i,1);renderIL();closeDlg();toast('🗑️ Item dihapus');
+  });
+}
+
+function renderIL(){
+  var el=document.getElementById('il');
+  var lbl=document.getElementById('item-ct-lbl');
+  lbl.textContent=items.length+' item';
+  if(!items.length){
+    el.innerHTML='<div class="empty-il">'+
+      '<svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'+
+      '<p>Belum ada material ditambahkan</p>'+
+    '</div>';
+    return;
+  }
+  el.innerHTML=items.map(function(it,i){
+    var katCls=it.kategori==='Consumable'?'mk-c':'mk-r';
+    var meta=it.qty+' '+it.satuan+' · '+it.valuation+(it.ukuran?' · '+it.ukuran:'');
+    return '<div class="icard">'+
+      '<div class="inum">'+(i+1)+'</div>'+
+      '<div class="iinfo">'+
+        '<div class="iname">'+it.nama+' <span class="bdg '+katCls+'">'+it.kategori+'</span></div>'+
+        '<div class="imeta">'+it.kode+' &nbsp;|&nbsp; '+meta+'</div>'+
+      '</div>'+
+      '<button class="idel" type="button" onclick="removeItem('+i+')" title="Hapus">'+
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+
+          '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/>'+
+        '</svg>'+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+/* ── PREVIEW WA ── */
+function genPreview(){
+  if(!items.length){toast('⚠️ Tambahkan material dulu');return;}
+  if(!selKapal){toast('⚠️ Pilih kapal / project dulu');return;}
+  var tgl=fmtDate(v('tgl')||today());
+  var bar='\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501';
+  var txt='\uD83D\uDCE6 *REQUEST MATERIAL*\n'+bar+'\n';
+  txt+='\uD83D\uDCC5 Tanggal : '+tgl+'\n';
+  txt+='\uD83D\uDEA2 Kapal   : '+selKapal+'\n'+bar+'\n';
+  items.forEach(function(it,i){
+    txt+=(i+1)+'. *'+it.nama+'*\n';
+    txt+='   Kode      : '+it.kode+'\n';
+    txt+='   Jumlah    : '+it.qty+' '+it.satuan+'\n';
+    txt+='   Valuation : '+it.valuation+'\n';
+    if(it.ukuran)txt+='   Ukuran    : '+it.ukuran+'\n';
+    if(i<items.length-1)txt+='\n';
+  });
+  txt+=bar+'\n_PT. Sumber Hayati Mandiri_';
+  document.getElementById('prev-box').textContent=txt;
+  document.getElementById('prev-section').style.display='block';
+  setTimeout(function(){document.getElementById('prev-section').scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+}
+
+function copyPrev(){
+  var txt=document.getElementById('prev-box').textContent;
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast('\u2705 Teks berhasil disalin');});}
+  else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('\u2705 Teks berhasil disalin');}
+}
+function shareWA(){
+  var txt=document.getElementById('prev-box').textContent;
+  if(!txt){genPreview();txt=document.getElementById('prev-box').textContent;}
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+
+/* ── SIMPAN KE GAS + TAMPILKAN DATA BERSIH ── */
+function saveToGAS(){
+  if(!items.length){toast('\u26A0\uFE0F Tambahkan material dulu');return;}
+  if(!selKapal){toast('\u26A0\uFE0F Pilih kapal / project dulu');return;}
+  var tgl=v('tgl')||today();
+  /* Hitung summary kategori */
+  var hasConsumable=items.some(function(it){return it.kategori==='Consumable';});
+  var hasRaw=items.some(function(it){return it.kategori==='Raw Material';});
+  var katSum=hasConsumable&&hasRaw?'Mixed':hasConsumable?'Consumable':'Raw Material';
+  var payload={
+    action:'add',sheet:'request_material',
+    data:{
+      tanggal:tgl,project_kapal:selKapal,
+      items:JSON.stringify(items),
+      total_item:items.length,
+      kategori_summary:katSum,
+      created_at:new Date().toISOString(),
+    }
+  };
+  toast('\u23F3 Menyimpan...');
+  fetch(GAS,{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'text/plain'}})
+    .then(function(r){return r.json();})
+    .then(function(r){
+      if(r.status==='success'){
+        toast('\u2705 Request tersimpan');
+        /* tampilkan data bersih */
+        showDataBersih();
+      } else {
+        /* tetap tampilkan data bersih walau GAS gagal (offline mode) */
+        showDataBersih();
+        toast('\u26A0\uFE0F Offline — data tersimpan lokal');
+      }
+    })
+    .catch(function(){
+      showDataBersih();
+      toast('\u26A0\uFE0F Koneksi gagal — data tersimpan lokal');
+    });
+}
+
+/* ── DATA BERSIH ── */
+function showDataBersih(){
+  document.getElementById('db-card').style.display='block';
+  renderDBTable('full');
+  setTimeout(function(){document.getElementById('db-card').scrollIntoView({behavior:'smooth',block:'start'});},150);
+}
+
+function switchDBTab(tab){
+  DBG_TAB=tab;
+  document.getElementById('db-tab-full').classList.toggle('on',tab==='full');
+  document.getElementById('db-tab-con').classList.toggle('on',tab==='con');
+  renderDBTable(tab);
+}
+
+function renderDBTable(tab){
+  var rows=tab==='full'?items:items.filter(function(it){return it.kategori==='Consumable';});
+  var tbody=document.getElementById('db-tbody');
+  var info=document.getElementById('db-info');
+  if(!rows.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted-fg);font-size:12px">'+
+      (tab==='con'?'Tidak ada Consumable dalam request ini.':'Belum ada data.')+
+    '</td></tr>';
+    info.textContent='';
+    return;
+  }
+  tbody.innerHTML=rows.map(function(it,i){
+    var katCls=it.kategori==='Consumable'?'bdg-c':'bdg-r';
+    return '<tr>'+
+      '<td>'+( i+1)+'</td>'+
+      '<td class="kode-cell">'+it.kode+'</td>'+
+      '<td>'+it.nama+'</td>'+
+      '<td>'+it.qty+'</td>'+
+      '<td>'+it.satuan+'</td>'+
+      '<td>'+it.valuation+'</td>'+
+      '<td><span class="bdg '+katCls+'">'+it.kategori+'</span></td>'+
+    '</tr>';
+  }).join('');
+  var total=rows.length;
+  var totQty=rows.reduce(function(s,it){return s+parseFloat(it.qty||0);},0);
+  info.textContent=total+' item · Total qty: '+totQty.toFixed(2);
+}
+
+/* ── DIALOG ── */
+function showDlg(ttl,desc,okLbl,action){
+  dlgAction=action;
+  document.getElementById('dlg-ttl').textContent=ttl;
+  document.getElementById('dlg-desc').textContent=desc;
+  document.getElementById('dlg-ok').textContent=okLbl;
+  document.getElementById('dlg-overlay').classList.add('open');
+}
+function closeDlg(){document.getElementById('dlg-overlay').classList.remove('open');dlgAction=null;}
+function doDlg(){if(dlgAction)dlgAction();}
+</script>
+</body>
+</html>
